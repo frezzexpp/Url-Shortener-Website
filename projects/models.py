@@ -12,7 +12,7 @@ def generate_short_link():
 # ShortenedUrl model:
 class ShortenedURL(models.Model):
     short_link = models.CharField(max_length=10, unique=True, default=generate_short_link)
-    original_link = models.URLField()
+    original_link = models.URLField(max_length=500)
     clicks = models.PositiveIntegerField(default=0)
     status = models.BooleanField(default=True)  # True = Active, False = Inactive
     created_at = models.DateTimeField(auto_now_add=True)

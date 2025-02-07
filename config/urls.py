@@ -12,10 +12,14 @@ urlpatterns = [
     # JWT urls:
     path('auth/jwt/create/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('auth/jwt/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+
+urlpatterns += i18n_patterns(
+    path("i18n/", include('django.conf.urls.i18n')),
 
     # api urls:
     path('api/', include('api.urls')),
 
     # swagger schema:
     path('schema/', SpectacularAPIView.as_view(), name='schema')
-]
+)
