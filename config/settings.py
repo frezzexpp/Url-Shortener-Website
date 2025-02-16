@@ -1,9 +1,5 @@
-from datetime import timedelta
-from pathlib import Path
-from django.utils.translation import gettext_lazy as _
 import os
 import environ
-from tutorial.settings import AUTH_PASSWORD_VALIDATORS
 
 # ________________________________________________________________________________
 # ________________________________________________________________________________
@@ -24,6 +20,7 @@ SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=True)
 ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default='').split(' ')
 BASE_DIR = root()
+SHORT_URL = env.int('SHORT_URL_LENGTH')  #def=6
 # ________________________________________________________________________________
 # ________________________________________________________________________________
 
@@ -52,7 +49,6 @@ INSTALLED_APPS += [
     'rest_framework',
     'drf_spectacular',
     'djoser',
-    'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'modeltranslation',
 
@@ -65,12 +61,11 @@ INSTALLED_APPS += [
 
 # rest-framework default setting:
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'common.permissions.IsAdminOrAuthenticatedOrReadOnly',),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'common.permissions.IsAdminOrAuthenticatedOrReadOnly',),
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
@@ -175,14 +170,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
-
-LANGUAGES = [
-   ('uz', _('Uzbek')),
-   ('en', _('English')),
-   ('ru', _('Russian')),
-]
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
 
@@ -201,72 +188,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # ------------------------------------------------------------------------------------------------
 
 
-
-# swagger setting
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'Url Shortener',
-    'DESCRIPTION': 'Online App',
-    'VERSION': '1.0.0',
-    "SERVE_INCLUDE_SCHEMA": False,
-    'PREPROCESSING_HOOKS': [
-        'api.spectacular.hooks.custom_preprocessing_hook',
-    ],
-    'SERVE_PERMISSIONS': [
-        'rest_framework.permissions.IsAuthenticated'],
-    'SERVE_AUTHENTICATION': [
-        'rest_framework.authentication.BasicAuthentication'],
-    'SWAGGER_UI_SETTINGS': {
-        'DeepLinking': True,
-        'DisplayOperationId': True,
-    },
-    'COMPONENT_SPLIT_REQUEST': True,
-    'SORT_OPERATIONS': False,
-}
-# ------------------------------------------------------------------------------------------------
-# ------------------------------------------------------------------------------------------------
-
-
-
-# # SimpleJwt setting:
-# SIMPLE_JWT = {
-#     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-#     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-#     "ROTATE_REFRESH_TOKENS": False,
-#     "BLACKLIST_AFTER_ROTATION": False,
-#     "UPDATE_LAST_LOGIN": False,
-#
-#     "ALGORITHM": "HS256",
-#     "SIGNING_KEY": env("SECRET_KEY"),  # SECRET_KEY .env fayldan olinadi
-#     "VERIFYING_KEY": "",
-#     "AUDIENCE": None,
-#     "ISSUER": None,
-#     "JSON_ENCODER": None,
-#     "JWK_URL": None,
-#     "LEEWAY": 0,
-#
-#     "AUTH_HEADER_TYPES": ("Bearer",),
-#     "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
-#     "USER_ID_FIELD": "id",
-#     "USER_ID_CLAIM": "user_id",
-#     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
-#
-#     "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-#     "TOKEN_TYPE_CLAIM": "token_type",
-#     "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
-#
-#     "JTI_CLAIM": "jti",
-#
-#     "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
-#     "SLIDING_TOKEN_LIFETIME": timedelta(minutes=5),
-#     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
-#
-#     "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
-#     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
-#     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
-#     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
-#     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
-#     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
-# }
 
 DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': True,

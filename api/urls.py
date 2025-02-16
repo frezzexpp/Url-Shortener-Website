@@ -10,4 +10,3 @@ urlpatterns = [
 
 urlpatterns += users_urls
 urlpatterns += shortened_urls
-urlpatterns += doc_urls

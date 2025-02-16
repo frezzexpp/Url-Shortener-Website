@@ -1,9 +1,10 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status, generics
+from rest_framework.authtoken.models import Token
 from django.contrib.auth import login
-from .serializers import Registration, LoginSerializer, LogoutSerializer
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from .serializers import Registration, LoginSerializer, LogoutSerializer
 
 
 
@@ -14,11 +15,10 @@ class RegisterView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            self.perform_create(serializer)
-            headers = self.get_success_headers(serializer.data)
-            return Response({"message": "User registered successfully."}, status=status.HTTP_201_CREATED, headers=headers)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)  # Xato bo‘lsa, avtomatik error tashlaydi
+        user = serializer.save()
+        return Response({"message": "User registered successfully."},
+                        status=status.HTTP_201_CREATED)
 
 
 
@@ -31,19 +31,22 @@ class LoginView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             user = serializer.validated_data['user']
-            login(request, user)  # Log the user in
-            return Response({"message": "Login successful."}, status=status.HTTP_200_OK)
+            login(request, user)
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({"message": "Login successful.", "token": token.key}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
 # Logout view:
-@extend_schema(summary=' Create user logout', tags=['Users'])
-class LogoutView(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = LogoutSerializer
+@extend_schema(summary='Create user logout', tags=['Users'])
+class LogoutView(generics.CreateAPIView):  # POST so‘rovini qabul qiladi
+    serializer_class = LogoutSerializer  # Bo‘sh serializer
 
     def create(self, request, *args, **kwargs):
-        if hasattr(request.user, 'auth_token'):
-            request.user.auth_token.delete()
-        return Response({"message": "Successfully logged out."}, status=status.HTTP_200_OK)
+        try:
+            request.user.auth_token.delete()  # Tokenni o‘chirish
+            return Response({"message": "Successfully logged out."}, status=status.HTTP_200_OK)
+        except Token.DoesNotExist:
+            return Response({"error": "User is already logged out or token not found."},
+                            status=status.HTTP_400_BAD_REQUEST)
