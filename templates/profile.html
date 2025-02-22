@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="/static/css/profile.css">
+</head>
+<body>
+
+    <div class="profile-card">
+        <div class="profile-avatar">U</div>
+        <h2>User Profile</h2>
+        <div class="profile-info">
+            <span>Username:</span> <span id="username">frezzexpp</span>
+        </div>
+        <div class="profile-info">
+            <span>Email:</span> <span id="email">frezzek9@gmail.com</span>
+        </div>
+        <div class="profile-info">
+            <span>First Name:</span> <span id="first-name">John</span>
+            <input type="text" id="first-name-input" class="hidden">
+        </div>
+        <div class="profile-info">
+            <span>Last Name:</span> <span id="last-name">Doe</span>
+            <input type="text" id="last-name-input" class="hidden">
+        </div>
+
+        <div class="button-group">
+            <button class="btn edit-btn" id="edit-btn">Edit</button>
+            <button class="btn logout-btn" id="logout-btn">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("edit-btn").addEventListener("click", function() {
+            let firstNameSpan = document.getElementById("first-name");
+            let lastNameSpan = document.getElementById("last-name");
+            let firstNameInput = document.getElementById("first-name-input");
+            let lastNameInput = document.getElementById("last-name-input");
+            let editBtn = document.getElementById("edit-btn");
+
+            if (firstNameInput.classList.contains("hidden")) {
+                // Edit mode
+                firstNameInput.value = firstNameSpan.textContent;
+                lastNameInput.value = lastNameSpan.textContent;
+
+                firstNameSpan.classList.add("hidden");
+                lastNameSpan.classList.add("hidden");
+
+                firstNameInput.classList.remove("hidden");
+                lastNameInput.classList.remove("hidden");
+
+                editBtn.textContent = "Save";
+            } else {
+                // Save mode
+                firstNameSpan.textContent = firstNameInput.value;
+                lastNameSpan.textContent = lastNameInput.value;
+
+                firstNameSpan.classList.remove("hidden");
+                lastNameSpan.classList.remove("hidden");
+
+                firstNameInput.classList.add("hidden");
+                lastNameInput.classList.add("hidden");
+
+                editBtn.textContent = "Edit";
+            }
+        });
+
+        document.getElementById("logout-btn").addEventListener("click", function() {
+            alert("You have been logged out!");
+            // Bu yerda backend logout API chaqirilishi mumkin
+            window.location.href = "/login"; // Logoutdan keyin login sahifasiga yo‘naltirish
+        });
+    </script>
+
+</body>
+</html>

@@ -56,3 +56,14 @@ class LoginSerializer(serializers.Serializer):
 # Logout serializers:
 class LogoutSerializer(serializers.Serializer):
     message = serializers.CharField(default="Logout request")
+
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+        extra_kwargs = {
+            'username': {'read_only': True},
+            'email': {'read_only': True},
+        }

@@ -1,0 +1,149 @@
+/* From Uiverse.io by rahilansari261 */
+
+
+/* MAIN BODY */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f5f5f5; /* Orqa fon rangi (o'zgartirish mumkin) */
+    background-image: url("/static/img/Main%20Page%20-%20Trial%20Page%20(1).png");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed;
+    min-height: 100vh; 
+    width: 100%;
+}
+
+
+/* MAIN FORM */
+.form {
+    background-color: #15172b;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 420px;
+    max-width: 400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Maydonlar orasidagi bo‘shliq */
+    box-shadow: 0 0 8px rgba(4, 81, 197, 0.5);
+}
+
+
+/* MAIN TITLE */
+.title {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* MAIN SUB */
+.subtitle {
+    color: #eee;
+    font-family: sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+}
+
+
+/* INPUTS CONTAINER */
+.input-container {
+    position: relative;
+    width: 90%;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+
+/* INPUT */
+.input {
+    background-color: #303245;
+    border-radius: 12px;
+    border: 0;
+    color: #eee;
+    font-size: 16px;
+    height: 30px;
+    outline: 0;
+    padding: 10px 15px;
+    width: 100%;
+}
+
+/* MINI TEXT */
+.iLabel {
+    color: #808097;
+    font-family: sans-serif;
+    font-size: 14px;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.3s ease;
+}
+
+
+/* INPUT HOVER */
+.input:focus ~ .iLabel,
+.input:not(:placeholder-shown) ~ .iLabel {
+    top: 10px;
+    font-size: 12px;
+    color: #dc2f55;
+}
+
+
+/* SUMBIT BUTTON */
+.submit {
+    background-color: #08d;
+    border-radius: 12px;
+    border: 0;
+    color: #eee;
+    cursor: pointer;
+    font-size: 18px;
+    height: 50px;
+    width: 100%;
+    transition: background 0.3s;
+    margin-top: 20px;
+}
+
+/* SUMBIT HOVER */
+.submit:hover {
+    background-color: #06b;
+}
+
+
+/* LOGIN TEXT LINK */
+.login-link {
+    font-family: Inter;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #eee;
+    margin-bottom: 7px;
+}
+
+/* LOGIN BTN */
+.login-btn {
+    color: #08d;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.login-btn:hover {
+    text-decoration: underline;
+}
+
+
+/* PS EXP */
+.foot-ps{
+    font-family: Inter;
+    color: rgb(255, 255, 255);
+}

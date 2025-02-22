@@ -51,9 +51,11 @@ INSTALLED_APPS += [
     'djoser',
     'rest_framework.authtoken',
     'modeltranslation',
-
-
 ]
+
+# cors:
+INSTALLED_APPS += ['corsheaders', ]
+CORS_ALLOW_ALL_ORIGINS = True
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
 
@@ -84,6 +86,8 @@ REST_FRAMEWORK = {
 
 # middleware:
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -96,7 +100,10 @@ MIDDLEWARE = [
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
 
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = ['*']
+CSRF_COOKIE_SECURE = False
 
 # root_urlconfig and templates:
 ROOT_URLCONF = 'config.urls'

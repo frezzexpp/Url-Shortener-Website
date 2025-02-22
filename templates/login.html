@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/css/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+
+<div class="form">
+    <div class="title">Welcome Back</div>
+    <div class="subtitle">Log in to your account</div>
+
+    <!-- Username -->
+    <div class="input-container ic1">
+        <input placeholder="" type="text" class="input" id="username">
+        <div class="cut"></div>
+        <label class="iLabel" for="username">Username</label>
+    </div>
+
+    <!-- Password -->
+    <div class="input-container ic2">
+        <input placeholder="" type="password" class="input" id="password">
+        <div class="cut cut-short"></div>
+        <label class="iLabel" for="password">Password</label>
+    </div>
+
+    <!-- Submit Button -->
+    <button class="submit" type="submit" id="loginBtn">Login</button>
+
+    <!-- Don't have an account? -->
+    <div class="register-link">
+        <span class="foot-ps">Don't have an account?</span>
+        <a href="http://127.0.0.1:5500/templates/register.html" class="register-btn">Register</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/static/js/login.js"></script>
+
+</body>
+</html>

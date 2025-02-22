@@ -17,13 +17,13 @@
 
 
 
-
 /* -------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------------------- */
             /*                                         HEADER                                        */
 
+
+/* HEADER Styling */
 header {
-    padding: 15px ;
     margin-top: 25px;
     margin-bottom: 20px;
     padding: 20px 40px; /* Yuqoridan-pastdan 20px, chap va o‘ngdan 40px */
@@ -33,7 +33,7 @@ header {
 
 /* Linkly Logo */
 .main-logo{
-    width: 110;
+    width: 90;
     height: 46;
     font-family: Inter;
     font-size: 26px;
@@ -45,12 +45,11 @@ header {
 
             /* Buttons*/
  
-/* Login Button */
-.btn-login {
-    width: 104.1875px;
+/* Profile Button */
+.btn-profile {
+    width: 120px;
     height: 48px;
     border-radius: 19px;
-    border-width: 1px;
     color: #ffffff;
     border: 1px solid #3d3737;
     box-shadow: 0px 8px 25px 0px #1b1b1b1a;
@@ -58,153 +57,33 @@ header {
     text-decoration: none;
     font-weight: 600;
     background-color: #181E29;
-
     padding: 10px 20px;
     border-radius: 50px;
-    border: 1px solid #625f5f;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
-
+    margin-left: auto;
 }
 
-/* Login button Hover */
-.btn-login:hover {
+/* Profile button Hover */
+.btn-profile:hover {
     background-color: #333;
     color: #007bff;
 }
 
 
 
-/* Register Button */
-.btn-register {
-    width: 130.1875px;
-    height: 48px;
-    border-radius: 19px;
-    border-width: 1px;
-    color: #ffffff;
-    border: 1px solid #144EE3;
-    box-shadow: 10px 9px 22px 0px #144EE361;
-    text-decoration: none;
-    font-weight: 500;
-    background-color: #144EE3;
-
-    padding: 10px 5px; 
-    border-radius: 50px;
-    border: 1px solid #625f5f;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
-    margin-left: 10px;
-}
-
-/* Register button Hover */
-.btn-register:hover{
-    background-color: #ffffff;
-    color: #007bff;
-}
-
-
-
-
-            /* Texts */
-
-/* Login Text */
-.login-text{
-    font-family: Inter;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 18px;
-    letter-spacing: 0%;
-    text-align: center;
-
-}
-
-/* Register Text */
-.register-text{
-    font-family: Inter;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 18px;
-    letter-spacing: 0%;
-    text-align: center;
-}
-
-
-
-
-            /* Icons*/
-
-/* Login icon */
-.login-icon {
-    margin-left: 7px;
-}
-
-/* R icon */
-.r-icon {
-    color: rgb(69, 67, 67);
-}
-
-/* -------------------------------------------------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------------------------------------------------- */
-
-
-
-
-
-/* -------------------------------------------------------------------------------------------------------------------------- */
-/* -------------------------------------------------------------------------------------------------------------------------- */
-            /* MAIN CONTENT */
-
-.main-content{
-    width: 1421;
-    height: 935;
-    margin-top: 20px;        
-}
-
-
-            /* MAIN TEXTS */
-/* main text */
-.main-text{
-    width: 844;
-    height: 81;
-    left: 38px;
-    font-family: Inter;
-    font-size: 60px;
-    font-weight: 800;
-    background: linear-gradient(90deg, #144EE3, #EB568E, #A353AA, #144EE3);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-align: center;
-}
-
-/* Mini explain */
-.main-explain{
-    width: 634;
-    height: 47;
-    font-family: Inter;
-    font-weight: 300;
-    font-size: 15px;
-    line-height: 23.5px;
-    letter-spacing: 0%;
-    text-align: center;
-    color: #C9CED6;
-    margin-bottom: 25px;
-        
-
-}
-
-
-
                 /* MAIN INPUT */
 /* Main-input group */
+
+
 .input-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 60%;
+    margin-left: 5px;
 }
 
 /* Input container */
@@ -212,11 +91,11 @@ header {
     display: flex;
     align-items: center;
     background: #131722;
-    padding: 8px 15px;
+    padding: 8px 5px;
     border-radius: 25px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     height: 60px;
-    width: 550px;
+    width: 650px;
     box-shadow: 0 0 8px rgba(0, 102, 255, 0.5);
 
 }
@@ -255,6 +134,51 @@ header {
 }
 
 
+
+
+
+            /* Texts */
+
+/* Login Text */
+.login-text{
+    font-family: Inter;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0%;
+    text-align: center;
+
+}
+
+
+
+
+            /* Icons*/
+
+/* R icon */
+.r-icon {
+    color: rgb(69, 67, 67);
+}
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+/* -------------------------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------------------------------------- */
+            /* MAIN CONTENT */
+
+        
+
+
+
+
+
+
+
 .limit-message {
     font-size: 14px;
     color: #ffffff;
@@ -288,7 +212,9 @@ header {
             /* MAIN TABLE */
 
 
-
+.mian-table{
+    background: #fff;
+}
 
 .table-container {
     width: 100%;
@@ -302,7 +228,6 @@ table {
     background-color: #1e293b;
     border-radius: 10px;
     overflow: hidden;
-    scrollbar-width: 11px;
     
 }
 

@@ -1,18 +1,16 @@
 from django.shortcuts import get_object_or_404, redirect
-from rest_framework import generics, viewsets, status
+from rest_framework import generics, viewsets, status, mixins
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from drf_spectacular.utils import extend_schema_view, extend_schema
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from .models import ShortenedURL
 from .serializers import ShortUrlDetailSerializer, ShortenedURLSerializer
+from rest_framework.generics import ListAPIView
 
 
 
 # list all short url and create new short url:
-@extend_schema_view(
-    create=extend_schema(summary="Create a new shortened URL", tags=["URL Shortener"]),
-)
 class ShortenURLListView(generics.CreateAPIView):
     queryset = ShortenedURL.objects.all()
     serializer_class = ShortenedURLSerializer
@@ -27,7 +25,6 @@ class ShortenURLListView(generics.CreateAPIView):
 
 
 # Short url to original url:
-@extend_schema_view(summary="Redirect a shortened URL", tags=["URL Shortener"])
 class RedirectShortURLView(APIView):
     def get(self, request, short_link):
         url_instance = get_object_or_404(ShortenedURL, short_link=short_link, status=True)
@@ -37,10 +34,19 @@ class RedirectShortURLView(APIView):
 
 
 # ShortUrl details CRUD:
-@extend_schema_view(
-    list=extend_schema(summary='List Short Urls', tags=['Short Url Details']),
-)
-class ShortUrlCrud(viewsets.mixins.ListModelMixin,
-                   GenericViewSet):
+class ShortUrlCrud(viewsets.ModelViewSet):
     queryset = ShortenedURL.objects.all()
     serializer_class = ShortUrlDetailSerializer
+
+
+
+
+# Last five data:
+class LastFiveShortenedURLsView(ListAPIView):
+    serializer_class = ShortUrlDetailSerializer
+
+    def get_queryset(self):
+        return ShortenedURL.objects.order_by('-created_at')[:5]  # Oxirgi 5 ta URL
+
+
+

@@ -1,15 +1,15 @@
+from django.contrib.auth.models import User
 from drf_spectacular.utils import extend_schema
-from rest_framework import status, generics
+from rest_framework import status, generics, mixins
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import login
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import Registration, LoginSerializer, LogoutSerializer
-
+from rest_framework.viewsets import GenericViewSet
+from .serializers import Registration, LoginSerializer, LogoutSerializer, UserProfileSerializer
 
 
 # Register view:
-@extend_schema(summary='Create Register Users', tags=['Users'])
 class RegisterView(generics.CreateAPIView):
     serializer_class = Registration
 
@@ -23,7 +23,6 @@ class RegisterView(generics.CreateAPIView):
 
 
 # Login view:
-@extend_schema(summary='Create user login', tags=['Users'])
 class LoginView(generics.CreateAPIView):
     serializer_class = LoginSerializer
 
@@ -39,7 +38,6 @@ class LoginView(generics.CreateAPIView):
 
 
 # Logout view:
-@extend_schema(summary='Create user logout', tags=['Users'])
 class LogoutView(generics.CreateAPIView):  # POST so‘rovini qabul qiladi
     serializer_class = LogoutSerializer  # Bo‘sh serializer
 
@@ -50,3 +48,15 @@ class LogoutView(generics.CreateAPIView):  # POST so‘rovini qabul qiladi
         except Token.DoesNotExist:
             return Response({"error": "User is already logged out or token not found."},
                             status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+# Get user's Profile:
+class UserProfileView(mixins.UpdateModelMixin,
+                      mixins.RetrieveModelMixin,
+                   mixins.ListModelMixin,
+                   GenericViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserProfileSerializer
