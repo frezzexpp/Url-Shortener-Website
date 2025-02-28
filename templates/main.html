@@ -1,147 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!------------------------------------------------------------------------------------------------------------------>
-    <!------------------------------------------------------------------------------------------------------------------>
-                                            <!-- HEADER -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Shortener</title>
-
-    <!--CSS -->
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="/static/css/main.css">
 
-    <!--Bootstrap -->
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    
+    <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-
-    <!--icon -->
+    
+    <!-- Font Awesome (To‘g‘rilangan) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-    <!------------------------------------------------------------------------------------------------------------------>
-    <!------------------------------------------------------------------------------------------------------------------>
-
-
-    
-                                            <!--BODY -->
 <body class="main-body">
-
-    <!-- HEADER -->
     <header class="header">
-        <nav class="navbar navbar-dark navbar-container">
-            <!-- Logo -->
-            <div class="d-flex align-items-center">
-                <h1 class="main-logo">
-                    <img src="/static/img/Linkly.svg" alt="Linkly Logo">
-                    <sup class="r-icon">®</sup>
-                </h1>
+        <nav class="navbar">
+            <div class="logo-container">
+                <img src="/static/img/Linkly.svg" alt="Linkly Logo" class="logo">
             </div>
-    
-            <!-- Input qismi -->
-            <div class="input-wrapper ">
+            <div class="input-wrapper">
                 <div class="input-container">
                     <span class="icon">🔗</span>
                     <input type="text" class="url-input" placeholder="Enter the link here">
-                    <button class="shorten-btn">Shorten Now !</button>
+                    <button class="shorten-btn">Shorten Now!</button>
                 </div>
             </div>
-    
-            <!-- Profile Button -->
-            <a href="http://127.0.0.1:5500/templates/profile.html" class="btn-profile">
-                <i class="fas fa-user-circle fa-lg me-2"></i>
-                <span class="login-text">Profile</span>
-            </a>
+            <div class="profile-container">
+                <button class="profile-btn" id="profile-btn">
+                    <div class="welcome-tooltip" id="welcome-tooltip">Welcome, User!</div> <!-- Tooltip qo‘shildi -->
+                    <i class="fas fa-user-circle"></i>
+                    <span>Profile</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="profile.html">View Profile</a>
+                    <button class="logout-text" id="logout-btn">Logout</button>
+                </div>
+            </div>
+            
         </nav>
     </header>
     
-    <!------------------------------------------------------------------------------------------------------------------>
-    <!------------------------------------------------------------------------------------------------------------------>
+
     
-
-
-    <!-- MAIN CONTENT -->
-    <section class="main-content">
-        <div class="container">
-    
-        </div>
-    </section>
-    <!------------------------------------------------------------------------------------------------------------------>
-    <!------------------------------------------------------------------------------------------------------------------>
-        <!-- MAIN TABLE -->
-
-
-    <section class="container mt-5 main-table">
+    <section class="container main-table">
         <div class="table-container">
             <table>
                 <thead>
                     <tr>
-                        <th class="head-text">Short Link</th>
-                        <th class="head-text">Original Link</th>
-                        <th class="head-text">QR Code</th>
-                        <th class="head-text">Clicks</th>
-                        <th class="head-text">Status</th>
-                        <th class="head-text">Date</th>
+                        <th>History</th>
+                        <th>Short Link</th>
+                        <th>Original Link</th>
+                        <th>QR Code</th>
+                        <th>Clicks</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <a class="short-link" href="#">https://linkly.com/Bn41aCOinxj</a> 
-                            <button class="copy-btn" aria-label="Copy link"><i class="fas fa-copy"></i></button>
-                        </td>
-                        <td class="org-link"><i class="fab fa-twitter icon"></i> <a href="#">https://www.twitter.com/tweet/xyz</a></td>
-                        <td><img class="qr-img" src="/static/img/image 4.svg" alt="QR Code"></td>
-                        <td class="body-text">1313</td>
-                        <td><span class="status active"><i class="fas fa-check-circle"></i> Active</span></td>
-                        <td class="body-text">Oct - 10 - 2023</td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a class="short-link" href="#">https://linkly.com/Bn41aCOinxj</a> 
-                            <button class="copy-btn" aria-label="Copy link"><i class="fas fa-copy"></i></button>
-                        </td>
-                        <td class="org-link"><i class="fab fa-youtube icon"></i> <a href="#">https://www.youtube.com/watch?v=xyz</a></td>
-                        <td><img class="qr-img" src="/static/img/image 4.svg" alt="QR Code"></td>
-                        <td class="body-text">4313</td>
-                        <td><span class="status inactive"><i class="fas fa-times-circle"></i> Inactive</span></td>
-                        <td class="body-text">Oct - 08 - 2023</td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <a class="short-link" href="#">https://linkly.com/Bn41aCOinxj</a> 
-                            <button class="copy-btn" aria-label="Copy link"><i class="fas fa-copy"></i></button>
-                        </td>
-                        <td class="org-link"><i class="fas fa-globe icon"></i> <a href="#">https://www.adventuresinwanderlust.com/</a></td>
-                        <td><img class="qr-img" src="/static/img/image 4.svg" alt="QR Code"></td>
-                        <td class="body-text">1013</td>
-                        <td><span class="status active"><i class="fas fa-check-circle"></i> Active</span></td>
-                        <td class="body-text">Oct - 01 - 2023</td>
-                    </tr>
-                </tbody>
+                <tbody id="url-table-body"></tbody>
             </table>
         </div>
     </section>
-    
-    
-    
-    
-    <!------------------------------------------------------------------------------------------------------------------>
-    <!------------------------------------------------------------------------------------------------------------------>
 
-
-
-    <!-- jQuery and DataTables JS -->
+    <!-- jQuery va scriptlar -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script src="/static/js/base.js" ></script>
+    <script src="/static/js/main.js"></script>
 </body>
 </html>

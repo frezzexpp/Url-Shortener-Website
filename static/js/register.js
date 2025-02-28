@@ -2,21 +2,43 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("register-btn").addEventListener("click", function (e) {
         e.preventDefault();
 
-        let username = document.getElementById("username").value;
-        let email = document.getElementById("email").value;
-        let firstname = document.getElementById("firstname").value;
-        let lastname = document.getElementById("lastname").value;
-        let password = document.getElementById("password").value;
-        let password2 = document.getElementById("password2").value;
+        let username = document.getElementById("username").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let firstname = document.getElementById("firstname").value.trim();
+        let lastname = document.getElementById("lastname").value.trim();
+        let password = document.getElementById("password").value.trim();
+        let password2 = document.getElementById("password2").value.trim();
+
+        if (!username || !email || !firstname || !lastname || !password || !password2) {
+            Swal.fire({
+                icon: "warning",
+                title: "⚠️ Warning!",
+                text: "Please fill in all fields!",
+                confirmButtonColor: "#ffc107",
+                confirmButtonText: "OK"
+            });
+            return;
+        }
 
         if (password !== password2) {
             Swal.fire({
                 icon: "error",
-                title: "Oops...",
+                title: "❌ Error!",
                 text: "Passwords do not match!",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Try Again"
             });
             return;
         }
+
+        Swal.fire({
+            title: "⏳ Please wait...",
+            text: "Registering your account...",
+            allowOutsideClick: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
 
         fetch("http://127.0.0.1:8000/api/register/", {
             method: "POST",
@@ -32,38 +54,59 @@ document.addEventListener("DOMContentLoaded", function () {
                 password2: password2,
             }),
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log("API Response:", data);
+        .then(response => response.json().then(data => ({ status: response.status, body: data }))) // Return response status
+        .then(({ status, body }) => {
+            Swal.close(); // Close loading modal
 
-            if (data.token || data.message) {
+            if (status === 201) {
                 Swal.fire({
                     icon: "success",
-                    title: "Success!",
-                    text: "Account created successfully!",
+                    title: "✅ Success!",
+                    text: body.detail || "Account created successfully!",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then(() => {
+                    window.location.href = "login.html";
                 });
-                setTimeout(() => {
-                    window.location.href = "http://127.0.0.1:5500/templates/main.html";
-                }, 2000);
             } else {
-                let errorMsg = data.detail || "Something went wrong!";
-                if (data.password2) errorMsg = data.password2.join(" ");
-                if (data.username) errorMsg = data.username.join(" ");  // ✅ Username band bo‘lsa xabar berish
+                let errorMsg = "An error occurred!";
+
+                if (body.detail) {
+                    errorMsg = body.detail;
+                } else if (body.non_field_errors) {
+                    errorMsg = body.non_field_errors.join(" ");
+                } else if (body.username) {
+                    errorMsg = body.username.join(" ");
+                } else if (body.email) {
+                    errorMsg = body.email.join(" ");
+                } else if (body.password) {
+                    errorMsg = body.password.join(" ");
+                } else if (body.password2) {
+                    errorMsg = body.password2.join(" ");
+                }
 
                 Swal.fire({
                     icon: "error",
-                    title: "Oops...",
-                    text: errorMsg,
+                    title: "❌ Error!",
+                    html: `<strong>${errorMsg}</strong>`,
+                    confirmButtonColor: "#d33",
+                    confirmButtonText: "Close"
                 });
             }
         })
         .catch(error => {
-            console.error("Error:", error);
+            Swal.close(); // Close loading modal
+
             Swal.fire({
                 icon: "error",
-                title: "Error!",
-                text: "Failed to register. Please try again!",
+                title: "❌ Error!",
+                text: "An error occurred during registration. Please try again!",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Close"
             });
+
+            console.error("Error:", error);
         });
     });
 });

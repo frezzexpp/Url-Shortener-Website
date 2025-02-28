@@ -90,10 +90,12 @@ input {
 .edit-btn {
     background-color: #304769;
     color: white;
+    margin-left: 80px;
 }
 
 .edit-btn:hover {
-    background-color: #1a0148;
+    background-color: #fbfbfb;
+    color: black;
 }
 
 .logout-btn {

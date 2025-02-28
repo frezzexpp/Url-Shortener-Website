@@ -273,11 +273,9 @@ header {
     margin-left: 2px;
     margin-right: 2px;
 }
-
-
-
 /* -------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------------------- */
+
 
 
 
@@ -289,13 +287,17 @@ header {
 
 
 
-
+/* Table Container */
 .table-container {
     width: 100%;
-    overflow-x: auto;
+    max-height: 400px; /* Kerakli balandlik */
+    border-radius: 20px;
+    overflow-y: auto;
+    position: relative;
 }
 
 
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -306,6 +308,19 @@ table {
     
 }
 
+
+
+/* Thead and Tbody */
+thead {
+    position: sticky;
+    top: 0;
+    background-color: #0f172a; /* Jadval sarlavhasi orqa foni */
+    z-index: 10;
+}
+
+tbody {
+    background-color: #1e293b; /* Tana qismiga fon rangi */
+}
 
 th, td {
     padding: 12px 15px;
@@ -392,3 +407,5 @@ tr:hover {
 .body-text{
     color: rgb(197, 196, 196);
 }
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */

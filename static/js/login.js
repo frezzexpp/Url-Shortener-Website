@@ -1,54 +1,64 @@
-document.getElementById("loginBtn").addEventListener("click", function() {
-    let username = document.getElementById("username").value;
-    let password = document.getElementById("password").value;
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("loginBtn").addEventListener("click", function () {
+        let username = document.getElementById("username").value.trim();
+        let password = document.getElementById("password").value.trim();
 
-    fetch("http://127.0.0.1:8000/api/login/", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            username: username,
-            password: password
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(err => { throw err; });
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.token) {
-            localStorage.setItem("token", data.token);
-
+        if (!username || !password) {
             Swal.fire({
-                icon: "success",
-                title: "Success!",
-                text: "Login successful!",
-                timer: 2000,
-                showConfirmButton: false
-            }).then(() => {
-                window.location.href = "http://127.0.0.1:5500/templates/main.html";
+                icon: "warning",
+                title: "⚠️ Warning!",
+                text: "Please enter your username and password!",
+                confirmButtonColor: "#ffc107",
+                confirmButtonText: "OK"
             });
-
-        } else {
-            throw { detail: "Invalid username or password!" };
-        }
-    })
-    .catch(error => {
-        let errorMessage = "Something went wrong. Please try again.";
-
-        if (error.detail) {
-            errorMessage = error.detail;
+            return;
         }
 
         Swal.fire({
-            icon: "error",
-            title: "Error!",
-            text: errorMessage
+            title: "⏳ Please wait...",
+            text: "Logging in...",
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading()
         });
 
-        console.error("Error:", error);
+        fetch("http://127.0.0.1:8000/api/login/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        })
+        .then(response => response.json().then(data => ({ status: response.status, body: data })))
+        .then(({ status, body }) => {
+            Swal.close();
+
+            if (status === 200 && (body.auth_token || body.token)) { 
+                localStorage.setItem("token", body.auth_token || body.token);
+
+                Swal.fire({
+                    icon: "success",
+                    title: "✅ Success!",
+                    text: body.message || body.detail || "Login successful!",
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                }).then(() => window.location.href = "main.html");
+            } else {
+                throw body;
+            }
+        })
+        .catch(error => {
+            Swal.close();
+            let errorMessage = error.message || error.detail || 
+                (error.non_field_errors ? error.non_field_errors.join(" ") : "An unknown error occurred.");
+
+            Swal.fire({
+                icon: "error",
+                title: "❌ Error!",
+                html: `<strong>${errorMessage}</strong>`,
+                confirmButtonColor: "#d33",
+                confirmButtonText: "Close"
+            });
+
+            console.error("Error:", error);
+        });
     });
 });

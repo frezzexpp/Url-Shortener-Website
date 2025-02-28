@@ -1,31 +1,27 @@
 $(document).ready(function () {
-    let shortenCount = 0; // URL qisqartirish sanog'i
+    let shortenCount = 0; // URL shortening count
 
-    // URL qisqartirish uchun POST so‘rov
+    // Function to send POST request for URL shortening
     function shortenUrl() {
         if (shortenCount >= 5) {
             Swal.fire({
                 icon: "warning",
-                title: "Limit tugadi!",
-                text: "Sizning limitingiz tugadi. Yana imkoniyatga ega bo‘lish uchun ro‘yxatdan o‘ting!",
+                title: "Limit Reached!",
+                text: "You have reached your limit. Please sign up to get more access!",
             });
             return;
         }
 
-        let originalUrl = $(".url-input").val().trim(); // Input maydonidagi link
+        let originalUrl = $(".url-input").val().trim(); // Get input field value
 
         if (!originalUrl) {
             Swal.fire({
                 icon: "error",
-                title: "Xatolik!",
-                text: "Iltimos, URL kiriting!",
+                title: "Error!",
+                text: "Please enter a URL!",
             });
             return;
         }
-// --------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------
-
-
 
         $.ajax({
             url: "http://127.0.0.1:8000/api/shorter/",
@@ -33,54 +29,53 @@ $(document).ready(function () {
             contentType: "application/json",
             data: JSON.stringify({ original_link: originalUrl }),
             success: function (response) {
-                shortenCount++; // Qisqartirilgan URL sonini oshiramiz
-                $(".url-input").val(""); // Inputni tozalash
+                shortenCount++; // Increment URL shortening count
+                $(".url-input").val(""); // Clear input field
+                
                 Swal.fire({
                     icon: "success",
-                    title: "Muvaffaqiyat!",
-                    text: "URL muvaffaqiyatli qisqartirildi!",
+                    title: "Success!",
+                    text: response.detail || "URL shortened successfully!", // Use backend response message
                 });
-                loadLastFiveUrls(); // Jadvalni yangilash
+
+                loadLastFiveUrls(); // Refresh table
             },
             error: function (xhr) {
-                let errorMessage = "URL qisqartirishda xatolik yuz berdi!";
-                if (xhr.responseJSON && xhr.responseJSON.error) {
-                    errorMessage = xhr.responseJSON.error;
+                let errorMessage = "An error occurred while shortening the URL!";
+                if (xhr.responseJSON && xhr.responseJSON.detail) {
+                    errorMessage = xhr.responseJSON.detail; // Use backend error message
                 }
                 Swal.fire({
                     icon: "error",
-                    title: "Xatolik!",
+                    title: "Error!",
                     text: errorMessage,
                 });
             }
         });
     }
 
-    // "Shorten Now" tugmasiga bosilganda
+    // "Shorten Now" button click event
     $(document).on("click", ".shorten-btn", function () {
         shortenUrl();
     });
 
-    // Enter tugmasi bosilganda ham qisqartirish
+    // Trigger shortening when Enter key is pressed
     $(".url-input").keypress(function (event) {
-        if (event.which === 13) { // Enter tugmasi bosilganda
+        if (event.which === 13) { // If Enter key is pressed
             shortenUrl();
         }
     });
-// --------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------------------------------------------------------------------------------
 
-    
-    // Jadvalni yuklash
+    // Function to load last 5 shortened URLs
     function loadLastFiveUrls() {
         $.ajax({
-            url: "http://127.0.0.1:8000/api/shorten/urls/",
+            url: "http://127.0.0.1:8000/api/last-five-urls/",
             method: "GET",
             success: function (data) {
                 let tableBody = $("#url-table-body");
-                tableBody.empty(); // Oldingi ma'lumotlarni tozalash
+                tableBody.empty(); // Clear previous data
 
-                shortenCount = data.results.length; // Foydalanuvchi necha marta qisqartirganini yangilaymiz
+                shortenCount = data.results.length; // Update shortening count
 
                 data.results.forEach(function (item) {
                     let row = `
@@ -107,48 +102,54 @@ $(document).ready(function () {
                     tableBody.append(row);
                 });
             },
-            error: function () {
+            error: function (xhr) {
+                let errorMessage = "Failed to retrieve data!";
+                if (xhr.responseJSON && xhr.responseJSON.detail) {
+                    errorMessage = xhr.responseJSON.detail; // Use backend error message
+                }
                 Swal.fire({
                     icon: "error",
-                    title: "Xatolik!",
-                    text: "Ma'lumotlarni olishda xatolik yuz berdi!",
+                    title: "Error!",
+                    text: errorMessage,
                 });
             }
         });
     }
 
-    // Nusxalash tugmasi yoki linkni bosganda nusxalash
+    // Copy link on button or link click
     $(document).on("click", ".copy-btn, .short-link", function (event) {
-        event.preventDefault(); // Link ochilishini to‘xtatish (faqat nusxalash uchun)
+        event.preventDefault(); // Prevent link from opening (only for copying)
 
         let link = $(this).data("link") || $(this).attr("href");
 
         navigator.clipboard.writeText(link).then(() => {
             Swal.fire({
                 icon: "success",
-                title: "Nusxalandi!",
-                text: "Link nusxalandi: " + link,
+                title: "Copied!",
+                text: "Link copied: " + link,
             });
         }).catch(() => {
             Swal.fire({
                 icon: "error",
-                title: "Xatolik!",
-                text: "Nusxalashda xatolik yuz berdi!",
+                title: "Error!",
+                text: "Failed to copy the link!",
             });
         });
     });
 
-    // Sahifa yuklanganda avtomatik chaqiriladi
+    // Load last 5 URLs when page loads
     loadLastFiveUrls();
 });
 
-// Domen nomiga mos ikonka tanlash funksiyasi
+// Function to get the appropriate icon based on domain name
 function getIconClass(url) {
-    if (url.includes("twitter.com")) return "fab fa-twitter";
-    if (url.includes("youtube.com")) return "fab fa-youtube";
-    if (url.includes("facebook.com")) return "fab fa-facebook";
-    if (url.includes("instagram.com")) return "fab fa-instagram";
-    if (url.includes("linkedin.com")) return "fab fa-linkedin";
-    if (url.includes("github.com")) return "fab fa-github";
-    return "fas fa-globe"; // Default ikonka
+    const domains = {
+        "twitter.com": "fab fa-twitter",
+        "youtube.com": "fab fa-youtube",
+        "facebook.com": "fab fa-facebook",
+        "instagram.com": "fab fa-instagram",
+        "linkedin.com": "fab fa-linkedin",
+        "github.com": "fab fa-github"
+    };
+    return Object.keys(domains).find(domain => url.includes(domain)) || "fas fa-globe";
 }

@@ -56,7 +56,12 @@ class LogoutView(generics.CreateAPIView):  # POST so‘rovini qabul qiladi
 # Get user's Profile:
 class UserProfileView(mixins.UpdateModelMixin,
                       mixins.RetrieveModelMixin,
-                   mixins.ListModelMixin,
-                   GenericViewSet):
-    queryset = User.objects.all()
+                      GenericViewSet):
     serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticated]  # Faqat kirgan foydalanuvchilar uchun
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)  # Faqat login qilgan foydalanuvchini oladi
+
+    def get_object(self):
+        return self.request.user  # Foydalanuvchini bevosita qaytarish
