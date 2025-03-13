@@ -208,8 +208,20 @@
 
 /* Main Table */
 .main-table {
-    margin-top: 100px;
+    margin-top: 110px;
+    
 }
+
+
+.history-title {
+    color: white;
+    font-weight: bold; /* bold uchun to‘g‘ri yozilishi */
+    font-size: 20px; /* Kattalashtirish uchun */
+    margin-bottom: 15px; /* Jadvaldan ajratish */
+    text-align: left; /* Chapga hizalanadi */
+    padding-left: 10px; /* Ichkariga joylash */
+}
+
 
 /* Table Container */
 .table-container {
@@ -240,6 +252,7 @@ tbody {
     background-color: #1e293b; /* Tana qismiga fon rangi */
 }
 
+
 th, td {
     padding: 12px 15px;
     text-align: left;
@@ -254,7 +267,23 @@ th {
 
 
 tr:hover {
-    background-color: #1e293b;
+    background-color: #122038;
+}
+
+.org-link{
+    text-decoration: none; 
+    display: inline-block;  
+    max-width: 250px;  /* Link maksimal uzunligi */
+    white-space: nowrap; /* Bitta qatorda qolishi */
+    overflow: hidden; /* Ortiqcha qismi yashirinadi */
+    text-overflow: ellipsis; /* ... qo‘shiladi */
+    vertical-align: middle;
+}
+
+.short-link{
+    text-decoration: none; 
+
+    
 }
 
 .short-link, .org-link a {
@@ -279,8 +308,8 @@ tr:hover {
 }
 
 .qr-img {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
 }
 
 .status {
@@ -321,7 +350,7 @@ tr:hover {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 20px;
     margin: 0 5px;
     color: #94a3b8;
 }
@@ -339,3 +368,199 @@ tr:hover {
 }
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
+
+
+
+
+
+            /* MAIN FILTER */
+/* Filter tugmasi */
+.filter-btn {
+    padding: 10px 20px;
+    background: #0276f1;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: bold;
+    
+    /* O'ng tomonga joylash */
+    position: absolute;
+    right: 125px;
+    top: 200px;
+    margin-top: 10px;
+}
+
+.filter-btn:hover {
+    background: #0056b3;
+}
+
+
+
+
+/* Filter modal oynasi */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal tarkibi */
+.modal-contents {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 500px;
+    background-color: #13132f;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    margin-left: 500px;
+    margin-top: 150px;
+}
+
+.filter-text{
+    margin-bottom: 30px;
+}
+
+/* Yopish tugmasi */
+.close {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    font-size: 44px;
+    cursor: pointer;
+    color: red;
+    font-weight: bold;
+}
+.close:hover {
+    color: #FF6363;
+}
+
+/* Input va Select styling */
+.modal-contents input,
+.modal-contents select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #2C3E50;
+    color: white;
+    font-size: 16px;
+}
+
+.modal-contents input:focus,
+.modal-contents select:focus {
+    outline: none;
+    border-color: #4A90E2;
+}
+
+/* Apply Filter tugmasi */
+#apply-filter {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    background: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 30px;
+}
+
+#apply-filter:hover {
+    background: #fdfdfd;
+    color: black;
+}
+
+/* Label styling */
+.modal-contents label {
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    color: #B0BEC5;
+}
+
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
+
+
+
+
+
+/* Update action: */
+.custom-modal-bg {
+    background-color:#131c4a !important;
+    color: rgb(255, 255, 255) !important;  /* Matn qora bo‘ladi */
+    border-radius: 8px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-btn {
+    background-color: rgb(5, 44, 88) !important;  /* Tugmalarning foni oq */
+    border-color: red !important;
+    color: rgb(255, 255, 255) !important;             /* Matn rangi qora */
+    border: 1px solid #ccc !important;   /* Chegarasi engil kulrang */
+    padding: 10px 20px !important;       /* Tugma o‘lchami */
+    font-size: 16px !important;          /* Matn o‘lchami */
+    border-radius: 5px !important;       /* Tugma burchaklari yumaloq */
+    transition: 0.3s;                    /* Animatsiya qo‘shish */
+}
+.custom-btn:hover {
+    background-color: #15005c !important; /* Hover effekti */
+}
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+    display: none; /* Dastlab yashirin */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    width: 300px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}

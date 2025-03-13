@@ -1,6 +1,8 @@
 from rest_framework import serializers, reverse
 from .models import ShortenedURL
 
+
+
 class ShortenedURLSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -9,10 +11,12 @@ class ShortenedURLSerializer(serializers.ModelSerializer):
         # read_only_fields = ['short_link', 'clicks', 'created_at']
 
 
+
+
 class ShortUrlDetailSerializer(serializers.ModelSerializer):
     short_link = serializers.SerializerMethodField()
+    status = serializers.BooleanField()  # Agar string bo‘lsa, BooleanField qo‘shing
     user = serializers.PrimaryKeyRelatedField(read_only=True)  # Foydalanuvchi ID qaytadi
-
 
     class Meta:
         model = ShortenedURL
@@ -24,13 +28,8 @@ class ShortUrlDetailSerializer(serializers.ModelSerializer):
 
 
 
-#
-# class ShortenURLSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ShortenedURL
-#         fields = ["original_link", "short_link", "user"]
-#         extra_kwargs = {"user": {"read_only": True}}  # User o‘zgartirilmasligi uchun
-#
-#     def create(self, validated_data):
-#         validated_data["user"] = self.context["request"].user  # Foydalanuvchini avtomatik qo‘shish
-#         return super().create(validated_data)
+
+class StatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShortenedURL
+        fields = ['status']

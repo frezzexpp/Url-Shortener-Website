@@ -161,7 +161,7 @@ header {
 .main-content{
     width: 1421;
     height: 935;
-    margin-top: 20px;        
+    margin-top: 10px;        
 }
 
 
@@ -260,6 +260,7 @@ header {
     color: #ffffff;
     text-align: center;
     margin-top: 8px;
+    box-shadow: black;
 }
 
 .register-btn {
@@ -322,10 +323,15 @@ tbody {
     background-color: #1e293b; /* Tana qismiga fon rangi */
 }
 
+
+
 th, td {
     padding: 12px 15px;
     text-align: left;
     border-bottom: 1px solid #334155;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 
@@ -337,9 +343,19 @@ th {
 
 
 tr:hover {
-    background-color: #1e293b;
+    background-color: #122038;
 }
 
+
+.org-link{
+    text-decoration: none; 
+    display: inline-block;  
+    max-width: 250px;  /* Link maksimal uzunligi */
+    white-space: nowrap; /* Bitta qatorda qolishi */
+    overflow: hidden; /* Ortiqcha qismi yashirinadi */
+    text-overflow: ellipsis; /* ... qo‘shiladi */
+    vertical-align: middle;
+}
 
 .short-link, .org-link a {
     color: #3b82f6;
@@ -352,19 +368,25 @@ tr:hover {
 }
 
 
+
+
 .copy-btn {
     background: none;
     border: none;
     color: white;
-    cursor: pointer;
     margin-left: 5px;
-}
+    cursor: pointer; 
+    transition: background-color 0.3s ease; /* Yaxshi effekt qo‘shish */
 
+}
 
 .copy-btn i {
     font-size: 16px;
 }
 
+.copy-btn.hover{
+    background-color: rgba(255, 255, 255, 0.2);
+}
 
 .qr-img {
     width: 30px;
@@ -407,5 +429,134 @@ tr:hover {
 .body-text{
     color: rgb(197, 196, 196);
 }
+
+
+.register-row {
+    background-color: #04122c; /* Orqa fon rangini moslang */
+    color: #ffffff;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.register-link {
+    color: #00aaff; /* Ko'k rang */
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
+
+
+/* Modal fon oynasi */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Qoraygan fon */
+}
+
+/* Modal oynaning ichki qismi */
+.modal-content {
+    background-color: #ffffff;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Modal yopish tugmasi */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #630000;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: #ff4d4d;
+
+}
+
+/* Matn stillari */
+.modal-content h2 {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.modal-content p {
+    color: #666;
+    font-size: 16px;
+}
+
+/* Short URL */
+#shortLink {
+    display: block;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #007BFF;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+#shortLink:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Copy tugmasi */
+#copyBtn {
+    background: linear-gradient(45deg, #007BFF, #0056b3);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    transition: 0.3s;
+}
+
+#copyBtn i {
+    font-size: 18px;
+}
+
+#copyBtn:hover {
+    background: linear-gradient(45deg, #0056b3, #004494);
+}
+
+/* Modal uchun fade-in animatsiyasi */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

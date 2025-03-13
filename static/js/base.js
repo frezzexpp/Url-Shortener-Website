@@ -1,70 +1,85 @@
 $(document).ready(function () {
-    let shortenCount = 0; // URL shortening count
+    let modal = $("#successModal");
+    let closeBtn = $(".close-btn");
 
-    // Function to send POST request for URL shortening
-    function shortenUrl() {
-        if (shortenCount >= 5) {
-            Swal.fire({
-                icon: "warning",
-                title: "Limit Reached!",
-                text: "You have reached your limit. Please sign up to get more access!",
-            });
-            return;
+    // Modal oynani yopish
+    closeBtn.click(function () {
+        modal.hide();
+    });
+
+    $(window).click(function (event) {
+        if ($(event.target).is(modal)) {
+            modal.hide();
         }
+    });
 
-        let originalUrl = $(".url-input").val().trim(); // Get input field value
+    // Copy tugmasi bosilganda linkni nusxalash
+    $("#copyBtn").click(function () {
+        let shortLink = $("#shortLink").attr("href");
+        navigator.clipboard.writeText(shortLink).then(() => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Copied!',
+                text: 'Short link copied to clipboard.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }).catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Failed to copy the link!'
+            });
+        });
+    });
 
+    // Shortener API chaqirish
+    function shortenUrl() {
+        let originalUrl = $(".url-input").val().trim();
         if (!originalUrl) {
             Swal.fire({
-                icon: "error",
-                title: "Error!",
-                text: "Please enter a URL!",
+                icon: 'error',
+                title: 'Error!',
+                text: 'Please enter a valid URL.'
             });
             return;
         }
 
         $.ajax({
-            url: "http://127.0.0.1:8000/api/shorter/",
-            method: "POST",
+            url: "http://127.0.0.1:8000/api/2/shorter/",
+            type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ original_link: originalUrl }),
+            data: JSON.stringify({origin_url: originalUrl }),
             success: function (response) {
-                shortenCount++; // Increment URL shortening count
-                $(".url-input").val(""); // Clear input field
-                
-                Swal.fire({
-                    icon: "success",
-                    title: "Success!",
-                    text: response.detail || "URL shortened successfully!", // Use backend response message
-                });
-
-                loadLastFiveUrls(); // Refresh table
+                let shortUrl = response.short_url;
+                $("#shortLink").attr("href", shortUrl).text(shortUrl);
+                modal.show();
             },
-            error: function (xhr) {
-                let errorMessage = "An error occurred while shortening the URL!";
-                if (xhr.responseJSON && xhr.responseJSON.detail) {
-                    errorMessage = xhr.responseJSON.detail; // Use backend error message
-                }
+            error: function () {
                 Swal.fire({
-                    icon: "error",
-                    title: "Error!",
-                    text: errorMessage,
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to shorten the URL.'
                 });
             }
         });
     }
 
     // "Shorten Now" button click event
-    $(document).on("click", ".shorten-btn", function () {
-        shortenUrl();
-    });
+    $(".shorten-btn").click(shortenUrl);
 
     // Trigger shortening when Enter key is pressed
     $(".url-input").keypress(function (event) {
-        if (event.which === 13) { // If Enter key is pressed
+        if (event.which === 13) { 
             shortenUrl();
         }
     });
+
+
+    
+
+
+
 
     // Function to load last 5 shortened URLs
     function loadLastFiveUrls() {
@@ -88,14 +103,13 @@ $(document).ready(function () {
                                 <i class="${getIconClass(item.original_link)} icon"></i>
                                 <a href="${item.original_link}" target="_blank">${item.original_link}</a>
                             </td>
-                            <td><img class="qr-img" src="/static/img/image 4.svg" alt=""></td>
-                            <td class="body-text click-count" data-id="${item.id}">${item.clicks}</td>
                             <td>
                                 <span class="status ${item.status ? 'active' : 'inactive'}">
                                     <i class="${item.status ? 'fas fa-check-circle' : 'fas fa-times-circle'}"></i>
                                     ${item.status ? 'Active' : 'Inactive'}
                                 </span>
                             </td>
+                            <td><img class="qr-img" src="/static/img/image 4.svg" alt=""></td>
                             <td class="body-text">${new Date(item.created_at).toLocaleDateString()}</td>
                         </tr>
                     `;
@@ -115,6 +129,8 @@ $(document).ready(function () {
             }
         });
     }
+
+    // Load last 5 URLs when page loads
 
     // Copy link on button or link click
     $(document).on("click", ".copy-btn, .short-link", function (event) {
@@ -151,5 +167,6 @@ function getIconClass(url) {
         "linkedin.com": "fab fa-linkedin",
         "github.com": "fab fa-github"
     };
-    return Object.keys(domains).find(domain => url.includes(domain)) || "fas fa-globe";
+    return domains[Object.keys(domains).find(domain => url.includes(domain))] || "fas fa-globe";
 }
+

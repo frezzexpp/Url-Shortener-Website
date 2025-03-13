@@ -7,6 +7,8 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="/static/css/main.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
 
     <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -21,6 +23,10 @@
     
     <!-- Font Awesome (To‘g‘rilangan) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    
+</head>
 </head>
 <body class="main-body">
     <header class="header">
@@ -34,7 +40,18 @@
                     <input type="text" class="url-input" placeholder="Enter the link here">
                     <button class="shorten-btn">Shorten Now!</button>
                 </div>
+                            <!-- Yashirin Modal -->
+                <div id="successModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn">&times;</span>
+                        <h2>Success!</h2>
+                        <p>Your short link:</p>
+                        <a id="shortLink" href="#" target="_blank"></a>
+                        <button id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                </div>
             </div>
+
             <div class="profile-container">
                 <button class="profile-btn" id="profile-btn">
                     <div class="welcome-tooltip" id="welcome-tooltip">Welcome, User!</div> <!-- Tooltip qo‘shildi -->
@@ -54,8 +71,37 @@
 
     
     <section class="container main-table">
+        <button id="open-filter-modal" class="filter-btn">
+            <i class="fas fa-filter"></i> Filter
+        </button>
+        
+        <!-- Filter Modal -->
+        <div id="filter-modal" class="modal">
+            <div class="modal-contents">
+                <span class="close">&times;</span>
+                <h3 class="filter-text">Filter Options</h3>
+                
+                <label>Original Link:</label>
+                <input type="text" id="original-link-filter" placeholder="Search by Original Link">
+                
+                <label>Status:</label>
+                <select id="status-filter">
+                    <option value="">All Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                
+                <label>Date:</label>
+                <input type="date" id="date-filter">
+                
+                <button id="apply-filter" class="apply-btn">Apply Filter</button>
+            </div>
+        </div>
+
+        <!-- Table Body -->
+        <div id="history-count" class="history-title">History (0)</div>
         <div class="table-container">
-            <table>
+            <table id="urlTable">
                 <thead>
                     <tr>
                         <th>History</th>
@@ -65,19 +111,25 @@
                         <th>Clicks</th>
                         <th>Status</th>
                         <th>Date</th>
-                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="url-table-body"></tbody>
             </table>
         </div>
     </section>
+    
 
     <!-- jQuery va scriptlar -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-
-    <script src="/static/js/main.js"></script>
+ <!-- jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+ <!-- Kutubxonalar -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+ <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>    
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
+ 
+ <!-- Asosiy JS -->
+ <script src="/static/js/main.js"></script>
 </body>
 </html>
