@@ -44,7 +44,47 @@ header {
 
 
             /* Buttons*/
+
+
+
+/* SELECT LANG: */
+.language-select {
+    appearance: none;
+    background-color: #0099ff;
+    border: 2px solid #404040;
+    color: white;
+    border-radius: 8px;
+    padding: 11px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='black'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    margin-right: 15px;
+    border-radius: 70px;
+}
+
+.language-select:hover {
+    background-color: #ffecec;
+    color: black;
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.language-select {
+    width: 140px;
+    max-width: 100%;
+}
+
  
+
+
+
 /* Login Button */
 .btn-login {
     width: 104.1875px;
@@ -89,8 +129,10 @@ header {
     text-decoration: none;
     font-weight: 500;
     background-color: #144EE3;
-
-    padding: 10px 5px; 
+    width: auto; /* Matn uzunligiga qarab moslashadi */
+    padding: 10px 16px; /* Tugma ichidagi bo‘sh joyni moslash */
+    min-width: 120px; /* Juda kichik bo‘lib qolmasligi uchun */
+    white-space: nowrap; /* Matnni yangi qatorga tushishini oldini olish */
     border-radius: 50px;
     border: 1px solid #625f5f;
     display: inline-flex;
@@ -368,7 +410,10 @@ tr:hover {
 }
 
 
-
+.clicks{
+    color: white;
+    font-size: bold;
+}
 
 .copy-btn {
     background: none;
@@ -447,6 +492,9 @@ tr:hover {
 .register-link:hover {
     text-decoration: underline;
 }
+
+
+
 
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */

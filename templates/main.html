@@ -25,92 +25,115 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
 
-    
 </head>
 </head>
 <body class="main-body">
+
     <header class="header">
         <nav class="navbar">
             <div class="logo-container">
                 <img src="/static/img/Linkly.svg" alt="Linkly Logo" class="logo">
             </div>
+
+
+            <!-- Main input: -->
             <div class="input-wrapper">
                 <div class="input-container">
                     <span class="icon">🔗</span>
-                    <input type="text" class="url-input" placeholder="Enter the link here">
-                    <button class="shorten-btn">Shorten Now!</button>
+                    <input type="text" class="url-input" data-i18n="input.placeholder" placeholder="Enter the link here" >
+                    <button class="shorten-btn" data-i18n="button.shorten">Shorten Now!</button>
                 </div>
-                            <!-- Yashirin Modal -->
-                <div id="successModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-btn">&times;</span>
-                        <h2>Success!</h2>
-                        <p>Your short link:</p>
-                        <a id="shortLink" href="#" target="_blank"></a>
-                        <button id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+    
+                <div id="short-url-box" class="hidden">
+                    <h3 data-i18n="short_url.title">Your short URL is ready!</h3>
+                    <div class="short-url">
+                        <a id="short-url" href="#" target="_blank"></a>
+                        <button id="copy-btn">📋</button>
                     </div>
                 </div>
+    
             </div>
-
+            
+            <!-- Profile droptown: -->
             <div class="profile-container">
                 <button class="profile-btn" id="profile-btn">
-                    <div class="welcome-tooltip" id="welcome-tooltip">Welcome, User!</div> <!-- Tooltip qo‘shildi -->
+                    <div class="welcome-tooltip" id="welcome-tooltip" data-i18n="welcome">Welcome, User!</div>
                     <i class="fas fa-user-circle"></i>
-                    <span>Profile</span>
+                    <span id="username" class="username-txt">Loading...</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="profile-dropdown" id="profile-dropdown">
-                    <a href="profile.html">View Profile</a>
-                    <button class="logout-text" id="logout-btn">Logout</button>
+                    <a href="profile.html" data-i18n="profile.view">View Profile</a>
+                    <button class="logout-text" id="logout-btn" data-i18n="profile.logout">Logout</button>
                 </div>
             </div>
             
+
+            <!-- Select lang: -->
+            <select id="language-selector" class="language-select">
+                <option value="en">English 🌐</option>
+                <option value="uz">Uzbek 🌐</option>
+                <option value="ru">Russian 🌐</option>
+            </select>
+
         </nav>
     </header>
     
 
-    
+
+    <!-- Main table: -->
     <section class="container main-table">
+
+
+        <!-- Main filter -->
         <button id="open-filter-modal" class="filter-btn">
-            <i class="fas fa-filter"></i> Filter
+            <i class="fas fa-filter"></i> <span data-i18n="filter.button">Filter</span>
         </button>
         
-        <!-- Filter Modal -->
         <div id="filter-modal" class="modal">
             <div class="modal-contents">
                 <span class="close">&times;</span>
-                <h3 class="filter-text">Filter Options</h3>
+                <h3 class="filter-text" data-i18n="filter.title">Filter Options</h3>
                 
-                <label>Original Link:</label>
-                <input type="text" id="original-link-filter" placeholder="Search by Original Link">
+                <label for="short-link-filter" data-i18n="filter.short_link">Short Link:</label>
+                <input type="text" id="short-link-filter" placeholder="Search by Short Link" data-i18n="filter.short_link_placeholder">
                 
-                <label>Status:</label>
+                <label for="original-link-filter" data-i18n="filter.original_link">Original Link:</label>
+                <input type="text" id="original-link-filter" placeholder="Search by Original Link" data-i18n="filter.original_link_placeholder">
+                
+                <label for="status-filter" data-i18n="filter.status">Status:</label>
                 <select id="status-filter">
-                    <option value="">All Status</option>
-                    <option value="Active">Active</option>
-                    <option value="Inactive">Inactive</option>
+                    <option value="" data-i18n="filter.status_all">All Status</option>
+                    <option value="Active" data-i18n="filter.status_active">Active</option>
+                    <option value="Inactive" data-i18n="filter.status_inactive">Inactive</option>
                 </select>
+    
+                <label for="start-date-filter" data-i18n="filter.start_date">Start Date:</label>
+                <input type="date" id="start-date-filter">
+    
+                <label for="end-date-filter" data-i18n="filter.end_date">End Date:</label>
+                <input type="date" id="end-date-filter">
                 
-                <label>Date:</label>
-                <input type="date" id="date-filter">
-                
-                <button id="apply-filter" class="apply-btn">Apply Filter</button>
+                <button id="apply-filter" class="apply-btn" data-i18n="filter.apply">Apply Filter</button>
+                <button id="clear-filter-btn" class="clear-btn" data-i18n="filter.clear">Clear Filters</button>
             </div>
         </div>
+        
 
-        <!-- Table Body -->
-        <div id="history-count" class="history-title">History (0)</div>
+        <!-- Table body: -->
+        <div id="history-count" class="history-title" data-i18n="history.title">History (0)</div>
         <div class="table-container">
             <table id="urlTable">
                 <thead>
                     <tr>
-                        <th>History</th>
-                        <th>Short Link</th>
-                        <th>Original Link</th>
-                        <th>QR Code</th>
-                        <th>Clicks</th>
-                        <th>Status</th>
-                        <th>Date</th>
+                        <th data-i18n="table.history">History</th>
+                        <th data-i18n="table.short_link">Short Link</th>
+                        <th data-i18n="table.original_link">Original Link</th>
+                        <th data-i18n="table.clicks">Clicks</th>
+                        <th data-i18n="table.qr_code">QR Code</th>
+                        <th data-i18n="table.status">Status</th>
+                        <th data-i18n="table.date">Date</th>
+                        <th data-i18n="table.actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="url-table-body"></tbody>
@@ -118,6 +141,8 @@
         </div>
     </section>
     
+    
+
 
     <!-- jQuery va scriptlar -->
  <!-- jQuery -->
@@ -128,7 +153,7 @@
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>    
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
- 
+ <script src="/static/js/translate.js"></script>
  <!-- Asosiy JS -->
  <script src="/static/js/main.js"></script>
 </body>

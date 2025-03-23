@@ -110,3 +110,19 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+
+document.querySelectorAll(".eye-icon").forEach(icon => {
+    icon.addEventListener("click", function() {
+        let passwordField = this.previousElementSibling; // Oldingi inputni olish
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            this.classList.remove("fa-eye-slash");
+            this.classList.add("fa-eye");
+        } else {
+            passwordField.type = "password";
+            this.classList.remove("fa-eye");
+            this.classList.add("fa-eye-slash");
+        }
+    });
+});

@@ -94,6 +94,44 @@
 
 
 
+
+/* SELECT LANG: */
+.language-select {
+    appearance: none;
+    background-color: #2b63ff;
+    border: 2px solid #404040;
+    color: white;
+    border-radius: 8px;
+    padding: 13px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='black'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    border-radius: 70px;
+    margin-left: 15px;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+
+}
+
+.language-select:hover {
+    background-color: #ffecec;
+    color: black;
+}
+
+.language-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.language-select {
+    width: 140px;
+    max-width: 100%;
+}
+
+
 /* Profile qismi */
 .profile-container {
     flex: 1;
@@ -104,7 +142,7 @@
 .profile-btn{
     display: flex;
     align-items: center;
-    background: #00163f;
+    background: #001f5a;
     color: white;
     padding: 15px 25px;
     border-radius: 50px;
@@ -113,6 +151,9 @@
     transition: 0.3s;
     gap: 10px;
     cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 17, 255, 0.3);
+
+
 }
 .profile-btn:hover {
     background-color: #333333;
@@ -125,7 +166,7 @@
     position: absolute;
     top: 60px;
     right: 0;
-    background: #1C1F2E;
+    background: #0b154a;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 180px;
@@ -140,7 +181,7 @@
     padding: 12px 15px;
     text-align: left;
     text-decoration: none;
-    color: #1870ff;
+    color: #ffffff;
     border: none;
     background: none;
     cursor: pointer;
@@ -170,7 +211,7 @@
     right: 0;
     background: #00163f;
     color: white;
-    width: 140px;  /* Kengligi */
+    width: 150px;  /* Kengligi */
     height: 50px;  /* Balandligi */
     padding: 10px 15px;
     border-radius: 50px; /* Tugma bilan bir xil radius */
@@ -192,6 +233,14 @@
     color: #007bff;
 }
 
+.username-txt {
+    max-width: 60px; /* Maksimal kenglikni sozlash */
+    white-space: nowrap; /* Matnni yangi qatordan chiqishiga yo‘l qo‘ymaslik */
+    overflow: hidden; /* Ortiqcha matnni yashirish */
+    text-overflow: ellipsis; /* Matn uzun bo‘lsa, uch nuqta qo‘yish */
+    display: inline-block; /* Inline element sifatida ishlash */
+    vertical-align: middle; /* Elementni o‘rta markazda ushlab turish */
+}
 
 /* .r-icon {
     color: rgb(255, 255, 255);
@@ -264,10 +313,20 @@ th {
     color: #94a3b8;
     font-weight: bold;
 }
+th:hover {
+    background-color: #122038;
+}
 
+
+tbody tr:hover {
+    background-color: #334155 !important;
+}
 
 tr:hover {
     background-color: #122038;
+}
+.click-count {
+    color: white !important;
 }
 
 .org-link{
@@ -366,8 +425,148 @@ tr:hover {
 .action-btn:hover {
     opacity: 0.8;
 }
+
+
+
+                                /* Table Actions: */
+/* Update action: */
+.custom-modal-bg {
+    background-color: #192841 !important; 
+    color: rgb(255, 255, 255) !important;  
+    border-radius: 8px !important;
+    border: 2px solid #34495E; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-btn {
+    background-color: rgb(5, 44, 88) !important;  
+    border-color: red !important;
+    color: rgb(255, 255, 255) !important;           
+    border: 1px solid #ccc !important;   
+    padding: 10px 20px !important;      
+    font-size: 16px !important;         
+    border-radius: 5px !important;      
+    transition: 0.3s;                   
+}
+.custom-btn:hover {
+    background-color: #474e5b !important; 
+}
+
+
+
+
+
+
+/* Delete action: */
+.swal-custom-popup {
+    background-color: #192841 !important; 
+    color: #fff !important;
+    border-radius: 10px;
+    border: 2px solid #34495E; 
+}
+
+
+.swal-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+.swal-text {
+    font-size: 16px;
+    color: #dcdcdc;
+}
+
+
+.swal-confirm-btn {
+    background-color: #ff0800 !important; 
+    color: white !important;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-size: 16px;
+}
+
+
+.swal-cancel-btn {
+    background-color: #006067 !important; 
+    color: white !important;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-size: 16px;
+}
+
+
+.swal-confirm-btn:hover {
+    background-color: #9a9a9a !important; 
+}
+
+.swal-cancel-btn:hover {
+    background-color: #7f8c8d !important; 
+}
+
 /* ---------------------------------------------------------------- */
 /* ---------------------------------------------------------------- */
+/* Modal umumiy style */
+.swal2-popup {
+    border-radius: 10px;
+    background-color: #192841;
+    color: #ffffff;
+    border: 2px solid rgb(106, 103, 103);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Modal icon (Warning) */
+.swal2-icon.swal2-warning {
+    border-color: #ff9800;
+    color: #ff9800;
+}
+
+/* Modal title */
+.swal2-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Modal text */
+.swal2-content {
+    font-size: 16px;
+    color: #ddd;
+}
+
+/* Confirm (Yes) button */
+.swal2-confirm {
+    background: rgb(5, 44, 88) !important;
+    color: white !important;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.swal2-confirm:hover {
+    background: #625f6a !important;
+}
+
+/* Cancel button */
+.swal2-cancel {
+    background: #555 !important;
+    color: #ffffff !important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.swal2-cancel:hover {
+    background: #333 !important;
+}
+
+/* Loading text */
+.swal2-title:has(.swal2-loading) {
+    color: #005bee !important;
+    font-size: 18px;
+}
 
 
 
@@ -377,18 +576,18 @@ tr:hover {
 /* Filter tugmasi */
 .filter-btn {
     padding: 10px 20px;
-    background: #0276f1;
+    background:  #2b63ff;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     font-size: bold;
-    
-    /* O'ng tomonga joylash */
     position: absolute;
     right: 125px;
     top: 200px;
     margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+
 }
 
 .filter-btn:hover {
@@ -421,11 +620,16 @@ tr:hover {
     max-width: 500px;
     background-color: #13132f;
     color: #fff;
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     margin-left: 500px;
-    margin-top: 150px;
+    margin-top: 37px;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+    background-color: #192841;
+    border: 2px solid rgb(106, 103, 103);
+
+
 }
 
 .filter-text{
@@ -495,72 +699,138 @@ tr:hover {
     color: #B0BEC5;
 }
 
-/* ---------------------------------------------------------------- */
-/* ---------------------------------------------------------------- */
 
-
-
-
-
-
-/* Update action: */
-.custom-modal-bg {
-    background-color:#131c4a !important;
-    color: rgb(255, 255, 255) !important;  /* Matn qora bo‘ladi */
-    border-radius: 8px !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.custom-btn {
-    background-color: rgb(5, 44, 88) !important;  /* Tugmalarning foni oq */
-    border-color: red !important;
-    color: rgb(255, 255, 255) !important;             /* Matn rangi qora */
-    border: 1px solid #ccc !important;   /* Chegarasi engil kulrang */
-    padding: 10px 20px !important;       /* Tugma o‘lchami */
-    font-size: 16px !important;          /* Matn o‘lchami */
-    border-radius: 5px !important;       /* Tugma burchaklari yumaloq */
-    transition: 0.3s;                    /* Animatsiya qo‘shish */
-}
-.custom-btn:hover {
-    background-color: #15005c !important; /* Hover effekti */
-}
-
-
-
-
-
-
-
-
-
-
-
-.modal {
-    display: none; /* Dastlab yashirin */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
+.clear-btn{
+    margin-top: 15px;
+    padding: 12px;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background: #bb0000;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.clear-btn:hover{
+    background-color: #484e59;
+}
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
+
+
+                            /* user's table style: */
+
+/* Pagination: */
+.dataTables_paginate {
+    display: flex;
     justify-content: center;
     align-items: center;
+    gap: 8px;
+    margin-top: 15px;
 }
 
-.modal-content {
-    background: #fff;
-    padding: 20px;
+.dataTables_paginate a {
+    padding: 10px 16px;
+    border-radius: 6px;
+    background: #2d2d3a;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #4a4a6a;
+    transition: all 0.3s ease-in-out;
+}
+
+.dataTables_paginate a:hover {
+    background: #4a4a6a;
+    border-color: #ff9800;
+    color: #ff9800;
+}
+
+.dataTables_paginate .current {
+    background: #ff9800;
+    color: black;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid #ff9800;
+}
+
+.dataTables_paginate .disabled {
+    color: #666;
+    cursor: not-allowed;
+    background: #2e2e3e;
+    border: 1px solid #444;
+    opacity: 0.6;
+}
+
+
+
+
+
+
+/* Scroll: */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #051452; 
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #b9babb; 
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666666; 
+}
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */
+
+
+
+
+
+
+/* Hiden modal screen: */
+.hidden {
+    display: none;
+}
+
+#short-url-box {
+    background: #1e1e1e;
+    padding: 15px;
     border-radius: 10px;
+    margin-top: 10px;
     text-align: center;
-    position: relative;
-    width: 300px;
+    color: white;
+    width: 100%;
+    max-width: 400px;
+    display: none; /* Boshida yashirin bo‘ladi */
 }
 
-.close-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    font-size: 20px;
-    cursor: pointer;
+.short-url {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: #2a2a2a;
+    border-radius: 5px;
 }
+
+#copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+}
+/* ---------------------------------------------------------------- */
+/* ---------------------------------------------------------------- */

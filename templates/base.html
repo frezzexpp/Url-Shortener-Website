@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Link Shortener</title>
+    <title data-i18n="title">Link Shortener</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="/static/css/base.css">
-
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -32,48 +31,40 @@
                 </h1>
             </div>
             <div class="user-btns">
+                <select id="language-selector" class="language-select">
+                    <option value="en">English</option>
+                    <option value="uz">Uzbek</option>
+                    <option value="ru">Russian</option>
+                </select>
                 <a href="/templates/login.html" class="btn-login">
-                    <span class="login-text">Login</span> 
-                    <i class="fas fa-sign-in-alt login-icon"></i>
+                    <span data-i18n="base.login">Login</span> 
                 </a>
                 <a href="/templates/register.html" class="btn-register"> 
-                    <span class="register-text">Register Now</span> 
+                    <span data-i18n="base.register">Register Now</span> 
                 </a>
             </div>
         </nav>
     </header>
 
-
-    
-
     <!-- MAIN CONTENT -->
     <section class="main-content">
         <div class="container">
-            <h1 class="text-center main-text">Shorten Your Loooong Links :)</h1>
+            <h1 class="text-center main-text" data-i18n="base.main_title">Shorten Your Loooong Links :)</h1>
             <div class="center-container">
-                <p class="p-text main-explain">Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.</p>
+                <p class="p-text main-explain" data-i18n="base.description">Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.</p>
             </div>
             <div class="input-wrapper input-group">
                 <div class="input-container">
                     <span class="icon">🔗</span>
-                    <input type="text" class="url-input" placeholder="Enter the link here">
-                    <button class="shorten-btn">Shorten Now !</button>
+                    <input type="text" class="url-input" id="url-input" data-i18n-placeholder="base.input_placeholder">
+                    <button class="shorten-btn" data-i18n="base.shorten">Shorten Now!</button>
                 </div>
             </div>
             <p class="limit-message">
-                You can't get much access here!  
-                <a href="/templates/register.html" class="register-btn">Register</a> to get more access.
+                <span data-i18n="base.limit_message">You can't get much access here!</span>  
+                <a href="/templates/register.html" class="register-btn" data-i18n="base.register">Register</a> 
+                <span data-i18n="base.more_access">to get more access.</span>
             </p>
-        </div>
-        <!-- Modal Window -->
-        <div id="successModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn">&times;</span>
-                <h2>Success!</h2>
-                <p>Your short link:</p>
-                <a id="shortLink" href="#" target="_blank"></a>
-                <button id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
-            </div>
         </div>
     </section>
     
@@ -81,15 +72,15 @@
     <!-- MAIN TABLE -->
     <section class="container mt-5 main-table">
         <div class="table-container">
-            <table id="url-table hover">
+            <table id="url-table">
                 <thead>
                     <tr>
-                        <th class="head-text">Short Link</th>
-                        <th class="head-text">Original Link</th>
-                        <th class="head-text">Status</th>
-                        <th class="head-text">QR Code</th>
-
-                        <th class="head-text">Date</th>
+                        <th class="head-text" data-i18n="base.data_shortlink">Short Link</th>
+                        <th class="head-text" data-i18n="base.data_originallink">Original Link</th>
+                        <th class="head-text" data-i18n="base.data_status">Status</th>
+                        <th class="head-text" data-i18n="base.data_clicks">Clicks</th>
+                        <th class="head-text" data-i18n="base.data_qrcode">QR Code</th>
+                        <th class="head-text" data-i18n="base.data_date">Date</th>
                     </tr>
                 </thead>
                 <tbody id="url-table-body">
@@ -97,14 +88,17 @@
                 </tbody>
                 <tfoot>
                     <tr class="register-row">
-                        <td colspan="5" class="text-center">
-                            <a href="register.html" class="register-link">Register Now</a> to enjoy Unlimited usage.
+                        <td colspan="8" class="text-center">
+                            <span data-i18n="base.register_message">Register Now</span> 
+                            <a href="register.html" class="register-link" data-i18n="register">Register</a>
+                            <span data-i18n="enjoy_unlimited">to enjoy Unlimited usage.</span>
                         </td>
                     </tr>
                 </tfoot>
             </table>
         </div>
     </section>
+    
 
 
     <!-- jQuery & DataTables -->
@@ -113,6 +107,7 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/static/js/base.js"></script>
+    <script src="/static/js/translate.js"></script>
 
 </body>
 </html>

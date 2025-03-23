@@ -33,3 +33,4 @@ class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShortenedURL
         fields = ['status']
+

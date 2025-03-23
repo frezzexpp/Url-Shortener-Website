@@ -1,0 +1,62 @@
+{
+    "base.title": "Link Shortener",
+    "base.login": "Login",
+    "base.register": "Register Now",
+    "base.main_title": "Shorten Your Loooong Links :)",
+    "base.description": "Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.",
+    "base.input_placeholder": "Enter the link here",
+    "base.shorten": "Shorten Now!",
+    "base.limit_message": "You can't get much access here!",
+    "base.more_access": "to get more access.",
+    "base.data_shortlink": "Short Link",
+    "base.data_originallink": "Original Link",
+    "base.data_status": "Status",
+    "base.data_clicks": "Clicks",
+    "base.data_qrcode": "QR Code",
+    "base.data_date": "Date",
+    "base.register_message": "Register Now",
+    "base.enjoy_unlimited": "to enjoy Unlimited usage.",
+    
+
+
+    
+    "input.placeholder": "Enter the link here",
+    "button.shorten": "Shorten Now!",
+    "short_url.title": "Your short URL is ready!",
+    "welcome": "Welcome, User!",
+    "profile.view": "View Profile",
+    "profile.logout": "Logout",
+    "filter.button": "Filter",
+    "filter.title": "Filter Options",
+    "filter.short_link": "Short Link:",
+    "filter.short_link_placeholder": "Search by Short Link",
+    "filter.original_link": "Original Link:",
+    "filter.original_link_placeholder": "Search by Original Link",
+    "filter.status": "Status:",
+    "filter.status_all": "All Status",
+    "filter.status_active": "Active",
+    "filter.status_inactive": "Inactive",
+    "filter.start_date": "Start Date:",
+    "filter.end_date": "End Date:",
+    "filter.apply": "Apply Filter",
+    "filter.clear": "Clear Filters",
+    "history.title": "History",
+    "table.history": "History",
+    "table.short_link": "Short Link",
+    "table.original_link": "Original Link",
+    "table.qr_code": "QR Code",
+    "table.clicks": "Clicks",
+    "table.status": "Status",
+    "table.date": "Date",
+    "table.actions": "Actions",
+
+
+    "Welcome-login": "Welcome Back!",
+    "Login-account": "Log in to your account)",
+    "log-username": "Username",
+    "log-password": "Password",
+    "Login": "Login",
+    "dont-haveaccount": "Don't have an account?"
+}
+
+

@@ -1,5 +1,7 @@
 import os
 import environ
+from django.utils.translation import gettext_lazy as _
+
 
 # ________________________________________________________________________________
 # ________________________________________________________________________________
@@ -77,7 +79,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_PAGINATION_CLASS': 'common.paginations.CustomPagination',
-    'PAGE_SIZE': 20,
+    # 'PAGE_SIZE': 20,
 }
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
@@ -170,13 +172,19 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization:
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ('en', _('English')),
+    ('uz', _('Uzbek')),
+    ('ru', _('Russian')),
+]
 
-TIME_ZONE = 'UTC'
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "locale"),
+]
 
 USE_I18N = True
-
-USE_TZ = True
+USE_L10N = True
+MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
 

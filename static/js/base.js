@@ -76,6 +76,7 @@ $(document).ready(function () {
     });
 
 
+
     
 
 
@@ -109,6 +110,7 @@ $(document).ready(function () {
                                     ${item.status ? 'Active' : 'Inactive'}
                                 </span>
                             </td>
+                            <td class="clicks">${item.clicks}</td> <!-- ✅ Clicks qo‘shildi -->
                             <td><img class="qr-img" src="/static/img/image 4.svg" alt=""></td>
                             <td class="body-text">${new Date(item.created_at).toLocaleDateString()}</td>
                         </tr>
@@ -129,7 +131,7 @@ $(document).ready(function () {
             }
         });
     }
-
+    
     // Load last 5 URLs when page loads
 
     // Copy link on button or link click
@@ -169,4 +171,6 @@ function getIconClass(url) {
     };
     return domains[Object.keys(domains).find(domain => url.includes(domain))] || "fas fa-globe";
 }
+
+
 

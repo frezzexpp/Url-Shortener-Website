@@ -15,6 +15,58 @@ $(document).ready(function () {
     });
 
 
+    
+    
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
+        // Foydalanuvchining oxirgi login vaqtini olish
+    let lastLogin = localStorage.getItem("lastLogin");
+    let now = new Date().getTime();
+    // const oneDay = 24 * 60 * 60 * 1000; // 1 kun (millisekund)
+    const oneMinute = 60 * 1000; // 1 daqiqa (60,000 millisekund)
+
+
+    // Agar foydalanuvchi 24 soatdan beri login qilmagan bo‘lsa, Swal orqali chiqaramiz
+    if (!lastLogin || (now - lastLogin) > oneMinute) {
+        Swal.fire({
+            toast: true,
+            position: "top-end", // Yuqori o‘ng burchakda chiqadi
+            icon: "info",
+            title: "Welcome back! 🎉",
+            text: "Siz uzoq vaqt davomida tizimga kirmadingiz.",
+            showConfirmButton: false,
+            timer: 4000, // 4 soniyadan keyin yo‘qoladi
+            timerProgressBar: true,
+            background: "#0B1120", // Orqa fon rangi (sayt dizayniga mos)
+            color: "#ffffff", // Matn rangi
+            customClass: {
+                popup: "custom-toast",
+                title: "custom-title",
+                timerProgressBar: "custom-progress-bar"
+            }
+        });
+    }
+
+    // Hozirgi login vaqtini saqlash
+    localStorage.setItem("lastLogin", now);
+
+    // Swal uchun qo‘shimcha CSS
+    const style = document.createElement("style");
+    style.innerHTML = `
+        .swal2-popup.custom-toast {
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 255, 255, 0.4);
+        }
+        .swal2-title.custom-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #00FFFF; /* Neon ko‘k */
+        }
+        .swal2-timer-progress-bar.custom-progress-bar {
+            background: #00FFFF; /* Neon ko‘k progress bar */
+        }
+    `;
+    document.head.appendChild(style);
 
 
     // Welcome User Text Animation:
@@ -25,7 +77,8 @@ $(document).ready(function () {
         tooltip.css({ opacity: "0", transform: "translateY(0)" });
         setTimeout(() => tooltip.remove(), 500);
     }, 3000);
-
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
 
@@ -39,9 +92,30 @@ $(document).ready(function () {
     document.addEventListener("DOMContentLoaded", updateHistoryCount);
     const observer = new MutationObserver(updateHistoryCount);
     observer.observe(document.getElementById("url-table-body"), { childList: true });
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
 
+    // profile username:
+    let token = localStorage.getItem("token"); // Tokenni olish
+
+    if (token) {
+        fetch("http://127.0.0.1:8000/api/profile/", {
+            method: "GET",
+            headers: {
+                "Authorization": "Token " + token,
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            $("#username").text(data.username); // Username ni chiqarish
+        })
+        .catch(error => console.error("Error fetching profile:", error));
+    }
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
     
 
 
@@ -108,7 +182,49 @@ $(document).ready(function () {
             }
         });
     });
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
+
+    // function redirectShortURL(shortLink) {
+    //     fetch(`http://127.0.0.1:8000/api/${shortLink}/`)
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 return response.json().then(data => {
+    //                     throw { status: response.status, message: data.detail };
+    //                 });
+    //             }
+    //             return response;
+    //         })
+    //         .then(response => {
+    //             window.location.href = response.url;
+    //         })
+    //         .catch(error => {
+    //             if (error.status === 403) { // Inactive URL
+    //                 Swal.fire({
+    //                     icon: "warning",
+    //                     title: "URL Inactive",
+    //                     text: error.message || "This URL is inactive or disabled.",
+    //                     confirmButtonText: "OK"
+    //                 });
+    //             } else if (error.status === 404) { // URL topilmadi
+    //                 Swal.fire({
+    //                     icon: "error",
+    //                     title: "Not Found",
+    //                     text: error.message || "This shortened URL does not exist.",
+    //                     confirmButtonText: "OK"
+    //                 });
+    //             } else {
+    //                 Swal.fire({
+    //                     icon: "error",
+    //                     title: "Error",
+    //                     text: "Something went wrong!",
+    //                     confirmButtonText: "OK"
+    //                 });
+    //             }
+    //         });
+    // }
+    
 
 
 
@@ -131,6 +247,8 @@ $(document).ready(function () {
             window.location.href = "login.html";
         }, 3000);
     }
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
 
@@ -144,8 +262,11 @@ $(document).ready(function () {
             confirmButtonText: "OK"
         });
     }
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
+    
     // URL Shorter:
     $(document).ready(function () {
 
@@ -158,8 +279,6 @@ $(document).ready(function () {
             
             successModal.css("display", "block"); // Modalni ochish
         }
-        
-    
         $(".close-btn").click(function () {
             $("#successModal").hide();
         });
@@ -174,10 +293,20 @@ $(document).ready(function () {
         function shortenUrl() {
             let originalUrl = $(".url-input").val().trim();
             if (!originalUrl) {
-                showMessage("error", "Please enter a URL!");
+                showMessage("error", "Введите URL!");
                 return;
             }
-    
+        
+            // Agar URL `http://` yoki `https://` bilan boshlanmasa, `http://` qo‘shish
+            if (!/^https?:\/\//i.test(originalUrl)) {
+                originalUrl = "http://" + originalUrl;
+            }
+
+            if (!/\.[a-z]{2,}$/i.test(originalUrl)) {
+                originalUrl += ".com";
+            }
+
+
             $.ajax({
                 url: "http://127.0.0.1:8000/api/shorter/",
                 method: "POST",
@@ -208,27 +337,28 @@ $(document).ready(function () {
         });
     
     });
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
+
+
     
-
-
-
 
     // DataTable for user URLs:
     let userTable; // Global o'zgaruvchi
     $(document).ready(function () {
         console.log("Auth Token:", getAuthToken()); 
-
+    
         userTable = $('#urlTable').DataTable({
             scrollX: false,
             processing: true,
             serverSide: true,
             autoWidth: false,
             responsive: false,
-            pageLength: 10,
+            pageLength: 20,
             lengthChange: false,
-            ordering: true,
+            ordering: false,
             searching: false,
-            paging: false,
+            paging: true,
             info: false, 
             order: [[5, 'desc']],
             ajax: {
@@ -237,13 +367,32 @@ $(document).ready(function () {
                 headers: {
                     "Authorization": "Token " + getAuthToken()
                 },
-                data: function (d) {
-                    let filters = JSON.parse(localStorage.getItem('globalFilters') || '{}');
-                    d.limit = d.length;
-                    d.offset = d.start;
-                    d.original_link = filters['original-link-filter'] || "";
-                    d.status = filters['status-filter'] || "";
+    
+                data: function (d) {  
+                    let savedFilters = JSON.parse(localStorage.getItem('globalFilters')) || {};
+    
+                    d.search_short = savedFilters.search_short ?? $('#searchInput_short').val();
+                    d.search_origin = savedFilters.search_origin ?? $('#searchInput_origin').val();
+                    d.status = savedFilters.status ?? $('#statusFilter').val();
+                    
+                    if (d.status === "true" || d.status === "Active") {
+                        d.status = true;
+                    } else if (d.status === "false" || d.status === "Inactive") {
+                        d.status = false;
+                    }
+                    
+                    d.start_date = savedFilters.start_date ?? $('#start-date-filter').val();
+                    d.end_date = savedFilters.end_date ?? $('#end-date-filter').val();
+                    
+                    d.start = d.start ?? 0;
+                    d.length = d.length ?? 10;
+                    
+                    d.page = Math.floor(d.start / d.length) + 1;
+                    d.page_size = d.length;
+                    
+                    console.log("Sent Data:", d);
                 },
+                
                 dataSrc: function (json) {
                     console.log("API Response:", json);
                     json.recordsTotal = json.count;
@@ -251,10 +400,10 @@ $(document).ready(function () {
                     return json.results || json.items || [];
                 }
             },
-
+    
             columns: [
                 { data: 'id', title: 'ID', visible: false },
-
+    
                 {
                     data: 'short_link',
                     title: 'Short Link',
@@ -267,7 +416,7 @@ $(document).ready(function () {
                                 </div>`;
                     }
                 },
-
+    
                 {
                     data: 'original_link',
                     title: 'Original Link',
@@ -275,7 +424,15 @@ $(document).ready(function () {
                         return `<a href="${data}" target="_blank" class="org-link">${data}</a>`;
                     }
                 },
-                
+    
+                {
+                    data: 'clicks',
+                    title: 'Clicks',
+                    render: function (data) {
+                        return `<span class="click-count">${data}</span>`; // Clicks soni
+                    }
+                },
+    
                 {
                     data: null,
                     title: 'QR Code',
@@ -283,18 +440,15 @@ $(document).ready(function () {
                         return `<img class='qr-img' src="/static/img/image 4.svg" width="50" height="50" alt="QR Code">`;
                     }
                 },
-
+    
                 {
                     data: 'status',
                     title: 'Status',
                     render: function (data) {
-                        console.log("Status value:", data); // Status qiymatini tekshirish
-                        console.log("Status value:", data, typeof data);  // DEBUG uchun
-
-                
+                        console.log("Status value:", data, typeof data); 
+    
                         let statusText, iconClass;
-                
-                        let normalizedData = String(data).toLowerCase(); // Har doim string formatga o'tkazamiz
+                        let normalizedData = String(data).toLowerCase();
                         
                         if (normalizedData === "1" || normalizedData === "true") {
                             statusText = "Active";
@@ -306,14 +460,11 @@ $(document).ready(function () {
                             statusText = "Unknown";
                             iconClass = "fas fa-question-circle";
                         }
-                
+    
                         return `<span class="status ${statusText.toLowerCase()}">${statusText} <i class="${iconClass}"></i></span>`;
                     }
                 },
-                
-                
-                
-                
+    
                 {
                     data: 'created_at',
                     title: 'Date',
@@ -321,7 +472,7 @@ $(document).ready(function () {
                         return `<span class="text-white">${new Date(data).toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })}</span>`;
                     }
                 },
-
+    
                 {
                     data: null,
                     title: 'Actions',
@@ -339,12 +490,14 @@ $(document).ready(function () {
             ]
         });
     });
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
 
-    // FILTER:
+
+    // Filter:
     $(document).ready(function () {
-        // Modal boshqaruvi
         let modal = $("#filter-modal");
         let btn = $("#open-filter-modal");
         let closeBtn = $(".close");
@@ -352,9 +505,11 @@ $(document).ready(function () {
         btn.click(function () {
             modal.show();
             let savedFilters = JSON.parse(localStorage.getItem('globalFilters')) || {};
-            $("#original-link-filter").val(savedFilters.originalLink || "");
+            $("#short-link-filter").val(savedFilters.search_short || "");
+            $("#original-link-filter").val(savedFilters.search_origin || "");
             $("#status-filter").val(savedFilters.status || "");
-            $("#date-filter").val(savedFilters.date || "");
+            $("#start-date-filter").val(savedFilters.start_date || "");
+            $("#end-date-filter").val(savedFilters.end_date || "");
         });
     
         closeBtn.click(function () {
@@ -367,62 +522,64 @@ $(document).ready(function () {
             }
         });
     
-        // Filterni qo‘llash
         $("#apply-filter").click(function () {
-            let filters = {
-                originalLink: $("#original-link-filter").val().trim(),
-                status: $("#status-filter").val(),
-                date: $("#date-filter").val()
-            };
-            localStorage.setItem('globalFilters', JSON.stringify(filters));
-            applyFilters();
-            modal.hide();
-        });
-    
-        function applyFilters() {
-            if (typeof userTable !== 'undefined' && $.fn.DataTable.isDataTable('#urlTable')) {
-                let savedFilters = JSON.parse(localStorage.getItem('globalFilters')) || {};
-                
-                userTable.columns(2).search(savedFilters.originalLink || "");
-                userTable.columns(4).search(savedFilters.status || "");
-                userTable.draw();
-                
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Filter Applied!',
-                    text: 'Data has been updated!',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-            } else {
-                console.error("userTable is not loaded yet!");
+            let searchShort = $("#short-link-filter").val().trim();
+            let searchOrigin = $("#original-link-filter").val().trim();
+            let status = $("#status-filter").val();
+            let startDate = $("#start-date-filter").val();
+            let endDate = $("#end-date-filter").val();
+        
+            // Sanalarni tekshiramiz
+            if (startDate && endDate && startDate > endDate) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error!',
-                    text: 'User table is not loaded yet!'
-                }).then(() => {
-                    location.reload();
+                    title: 'Invalid Date Range!',
+                    text: 'Start date cannot be greater than end date.',
+                    confirmButtonText: 'OK'
                 });
+                return;
             }
-        }
-    
-        $("#clear-filter-btn").click(function () {
-            localStorage.removeItem('globalFilters');
-            $("#original-link-filter, #status-filter, #date-filter").val("");
-            
-            if (typeof userTable !== 'undefined' && $.fn.DataTable.isDataTable('#urlTable')) {
-                userTable.columns().search("").draw();
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Filter Cleared!',
-                    text: 'All filters have been removed!',
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-            }
+        
+            let filters = {
+                search_short: searchShort,
+                search_origin: searchOrigin,
+                status: status,
+                start_date: startDate,
+                end_date: endDate
+            };
+        
+            localStorage.setItem('globalFilters', JSON.stringify(filters));
+            userTable.ajax.reload();
+        
+            Swal.fire({
+                icon: 'success',
+                title: 'Filters Applied!',
+                text: 'Your filters have been successfully applied.',
+                confirmButtonText: 'OK'
+            });
+        
             modal.hide();
         });
+        
+        $("#clear-filter-btn").click(function () {
+            localStorage.removeItem('globalFilters');
+            $("#short-link-filter, #original-link-filter, #status-filter, #start-date-filter, #end-date-filter").val("");
+        
+            userTable.ajax.reload();
+        
+            Swal.fire({
+                icon: 'success',
+                title: 'Filters Cleared!',
+                text: 'All filters have been removed.',
+                confirmButtonText: 'OK'
+            });
+        
+            modal.hide();
+        });
+        
     });
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
     
 
 
@@ -440,8 +597,13 @@ $(document).ready(function () {
             text: "This URL will be permanently deleted!",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
+            customClass: {
+                popup: 'swal-custom-popup',
+                title: 'swal-title',
+                htmlContainer: 'swal-text',
+                confirmButton: 'swal-confirm-btn',
+                cancelButton: 'swal-cancel-btn'
+            },
             confirmButtonText: "Yes, delete it!",
             cancelButtonText: "Cancel"
         }).then((result) => {
@@ -461,6 +623,8 @@ $(document).ready(function () {
             }
         });
     });
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
 
@@ -468,7 +632,7 @@ $(document).ready(function () {
     $(document).on("click", ".edit-status", function () {
         let urlId = $(this).data("id");
         let currentStatus = $(this).data("status");
-    
+
         Swal.fire({
             title: "Update Status",
             showCancelButton: true,
@@ -482,9 +646,9 @@ $(document).ready(function () {
             }
         }).then((result) => {
             if (!result.isConfirmed && !result.isDenied) return;
-    
+
             let newStatus = result.isConfirmed ? 0 : 1;
-    
+
             $.ajax({
                 url: `http://127.0.0.1:8000/api/status/update/${urlId}/`,
                 method: "PUT",
@@ -501,12 +665,10 @@ $(document).ready(function () {
             });
         });
     });
-
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
     
     
-
-
-
 
     // COPY Button:
     $(document).on("click", ".copy-btn, .short-link", function (event) {
@@ -520,13 +682,18 @@ $(document).ready(function () {
         });
     });
 
+
     function loadUserUrls() {
         userTable.ajax.reload(); // Reload DataTable
     }
 
     loadUserUrls(); // Call to load User URLs initially
+// -----------------------------------------------------------------------------------------------------------------
+// -----------------------------------------------------------------------------------------------------------------
 
 
+
+// Original link logo:
     function getIconClass(url) {
         const domains = {
             "twitter.com": "fab fa-twitter",
