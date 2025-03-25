@@ -189,9 +189,12 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 # ------------------------------------------------------------------------------------------------
 
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # STATIC_ROOT ni aniqlaymiz
 
-# Static files (CSS, JavaScript, Images):
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 # ------------------------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------------------------
 
@@ -212,3 +215,5 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}/',
     'ACTIVATION_URL': '#/activate/{uid}/{token}/',
 }
+
+

@@ -19,44 +19,61 @@
     
 
 
-    
-    "input.placeholder": "Enter the link here",
-    "button.shorten": "Shorten Now!",
-    "short_url.title": "Your short URL is ready!",
-    "welcome": "Welcome, User!",
-    "profile.view": "View Profile",
-    "profile.logout": "Logout",
-    "filter.button": "Filter",
-    "filter.title": "Filter Options",
-    "filter.short_link": "Short Link:",
-    "filter.short_link_placeholder": "Search by Short Link",
-    "filter.original_link": "Original Link:",
-    "filter.original_link_placeholder": "Search by Original Link",
-    "filter.status": "Status:",
-    "filter.status_all": "All Status",
-    "filter.status_active": "Active",
-    "filter.status_inactive": "Inactive",
-    "filter.start_date": "Start Date:",
-    "filter.end_date": "End Date:",
-    "filter.apply": "Apply Filter",
-    "filter.clear": "Clear Filters",
-    "history.title": "History",
-    "table.history": "History",
-    "table.short_link": "Short Link",
-    "table.original_link": "Original Link",
-    "table.qr_code": "QR Code",
-    "table.clicks": "Clicks",
-    "table.status": "Status",
-    "table.date": "Date",
-    "table.actions": "Actions",
+
+    "main.input_placeholder": "Enter the link here",
+    "main.button.shorten": "Shorten Now!",
+    "main.short_url.title": "Your short URL is ready!",
+    "main.welcome": "Welcome, User!",
+    "main.profile.view": "View Profile",
+    "main.profile.logout": "Logout",
+    "main.filter.button": "Filter",
+    "main.filter.title": "Filter Options",
+    "main.filter.short_link": "Short Link:",
+    "main.filter.short_link_placeholder": "Search by Short Link",
+    "main.filter.original_link": "Original Link:",
+    "main.filter.original_link_placeholder": "Search by Original Link",
+    "main.filter.status": "Status:",
+    "main.filter.status_all": "All Status",
+    "main.filter.status_active": "Active",
+    "main.filter.status_inactive": "Inactive",
+    "main.filter.start_date": "Start Date:",
+    "main.filter.end_date": "End Date:",
+    "main.filter.apply": "Apply Filter",
+    "main.filter.clear": "Clear Filters",
+    "main.history.title": "History",
+    "main.table.history": "History",
+    "main.table.short_link": "Short Link",
+    "main.table.original_link": "Original Link",
+    "main.table.qr_code": "QR Code",
+    "main.table.clicks": "Clicks",
+    "main.table.status": "Status",
+    "main.table.date": "Date",
+    "main.table.actions": "Actions",
 
 
-    "Welcome-login": "Welcome Back!",
-    "Login-account": "Log in to your account)",
-    "log-username": "Username",
-    "log-password": "Password",
-    "Login": "Login",
-    "dont-haveaccount": "Don't have an account?"
+
+    "login.Welcome": "Welcome Back!",
+    "login.Login-account": "Log in to your account)",
+    "login.username": "Username",
+    "login.password": "Password",
+    "login.Login": "Login",
+    "login.dont-haveaccount": "Don't have an account?",
+
+
+
+
+    "register.Welcome": "Welcome",
+    "register.Create-account": "Let's create your account!",
+    "register.username": "Username",
+    "register.email": "Email",
+    "register.f-name": "First name",
+    "register.l-name": "Last name",
+    "register.password1": "Password",
+    "register.password2": "Confirm Password",
+    "register.sumbit": "Sumbit",
+    "register.have-account": "Already have an Account?"
+
+
 }
 
 

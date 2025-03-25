@@ -10,16 +10,21 @@
 </head>
 <body>
 
+
 <!-- Form -->
 <div class="form">
-    <div class="title">Welcome</div>
-    <div class="subtitle">Let's create your account!</div>
+    <a href="http://127.0.0.1:5500/templates/base.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="title" data-i18n="register.Welcome">Welcome</div>
+    <div class="subtitle" data-i18n="register.Create-account">Let's create your account!</div>
 
     <!-- Username -->
     <div class="input-container ic1">
         <input placeholder="" type="text" class="input" id="username">
         <div class="cut"></div>
-        <label class="iLabel" for="username">Username</label>
+        <label class="iLabel" for="username" data-i18n="register.username">Username</label>
     </div>
 
 
@@ -27,21 +32,21 @@
     <div class="input-container ic2">
         <input placeholder="" type="email" class="input" id="email">
         <div class="cut cut-short"></div>
-        <label class="iLabel" for="email">Email</label>
+        <label class="iLabel" for="email" data-i18n="register.email">Email</label>
     </div>
 
     <!-- First Name -->
     <div class="input-container ic1">
         <input placeholder="" type="text" class="input" id="firstname">
         <div class="cut"></div>
-        <label class="iLabel" for="firstname">First name</label>
+        <label class="iLabel" for="firstname" data-i18n="register.f-name">First name</label>
     </div>
 
     <!-- Last Name -->
     <div class="input-container ic2">
         <input placeholder="" type="text" class="input" id="lastname">
         <div class="cut"></div>
-        <label class="iLabel" for="lastname">Last name</label>
+        <label class="iLabel" for="lastname" data-i18n="register.l-name">Last name</label>
     </div>
 
 
@@ -49,25 +54,28 @@
     <!-- Password -->
     <div class="input-container ic2">
         <input placeholder="" type="password" class="input" id="password">
-        <i class="fas fa-eye-slash eye-icon" id="togglePassword1"></i>
-        <div class="cut cut-short"></div>
-        <label class="iLabel" for="password">Password</label>
+        <label class="iLabel" for="password" data-i18n="register.password1">Password</label>
+        <div class="eye-wrapper">
+            <i class="fas fa-eye-slash eye-icon" id="togglePassword1"></i>
+        </div>
     </div>
 
     <!-- Confirm Password -->
     <div class="input-container ic2">
         <input placeholder="" type="password" class="input" id="password2">
-        <i class="fas fa-eye-slash eye-icon" id="togglePassword2"></i>
-        <div class="cut cut-short"></div>
-        <label class="iLabel" for="password2">Confirm Password</label>
+        <label class="iLabel" for="password2" data-i18n="register.password2">Confirm Password</label>
+        <div class="eye-wrapper">
+            <i class="fas fa-eye-slash eye-icon" id="togglePassword2"></i>
+        </div>
     </div>
 
+
     <!-- Submit Button -->
-    <button class="submit" id="register-btn">Submit</button>
+    <button class="submit" id="register-btn" data-i18n="register.sumbit">Submit</button>
 
     <!-- Already have an account? -->
     <div class="login-link">
-        <span class="foot-ps">Already have an account?</span>
+        <span class="foot-ps" data-i18n="register.have-account">Already have an account?</span>
         <a href="login.html" class="login-btn">Login</a>
     </div>
 </div>
@@ -76,6 +84,7 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/static/js/translate.js"></script>
 <script src="/static/js/register.js"></script>
 
 

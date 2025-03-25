@@ -33,3 +33,19 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((error) => console.error("Translation file error:", error));
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const lang = localStorage.getItem("lang") || "uz"; // Default til
+    fetch(`/static/lang/${lang}.json`) // JSON faylini yuklash
+        .then(response => response.json())
+        .then(data => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                if (data[key]) {
+                    el.innerText = data[key];
+                }
+            });
+        })
+        .catch(error => console.error("Localization yuklashda xatolik:", error));
+});

@@ -40,12 +40,12 @@
             <div class="input-wrapper">
                 <div class="input-container">
                     <span class="icon">🔗</span>
-                    <input type="text" class="url-input" data-i18n="input.placeholder" placeholder="Enter the link here" >
-                    <button class="shorten-btn" data-i18n="button.shorten">Shorten Now!</button>
+                    <input type="text" class="url-input" data-i18n="main.input_placeholder" placeholder="Enter the link here" >
+                    <button class="shorten-btn" data-i18n="main.button.shorten">Shorten Now!</button>
                 </div>
     
                 <div id="short-url-box" class="hidden">
-                    <h3 data-i18n="short_url.title">Your short URL is ready!</h3>
+                    <h3 data-i18n="main.short_url.title">Your short URL is ready!</h3>
                     <div class="short-url">
                         <a id="short-url" href="#" target="_blank"></a>
                         <button id="copy-btn">📋</button>
@@ -57,14 +57,14 @@
             <!-- Profile droptown: -->
             <div class="profile-container">
                 <button class="profile-btn" id="profile-btn">
-                    <div class="welcome-tooltip" id="welcome-tooltip" data-i18n="welcome">Welcome, User!</div>
+                    <div class="welcome-tooltip" id="welcome-tooltip" data-i18n="main.welcome">Welcome, User!</div>
                     <i class="fas fa-user-circle"></i>
                     <span id="username" class="username-txt">Loading...</span>
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="profile-dropdown" id="profile-dropdown">
-                    <a href="profile.html" data-i18n="profile.view">View Profile</a>
-                    <button class="logout-text" id="logout-btn" data-i18n="profile.logout">Logout</button>
+                    <a href="profile.html" data-i18n="main.profile.view">View Profile</a>
+                    <button class="logout-text" id="logout-btn" data-i18n="main.profile.logout">Logout</button>
                 </div>
             </div>
             
@@ -87,53 +87,53 @@
 
         <!-- Main filter -->
         <button id="open-filter-modal" class="filter-btn">
-            <i class="fas fa-filter"></i> <span data-i18n="filter.button">Filter</span>
+            <i class="fas fa-filter"></i> <span data-i18n="main.filter.button">Filter</span>
         </button>
         
         <div id="filter-modal" class="modal">
             <div class="modal-contents">
                 <span class="close">&times;</span>
-                <h3 class="filter-text" data-i18n="filter.title">Filter Options</h3>
+                <h3 class="filter-text" data-i18n="main.filter.title">Filter Options</h3>
                 
-                <label for="short-link-filter" data-i18n="filter.short_link">Short Link:</label>
-                <input type="text" id="short-link-filter" placeholder="Search by Short Link" data-i18n="filter.short_link_placeholder">
+                <label for="short-link-filter" data-i18n="main.filter.short_link">Short Link:</label>
+                <input type="text" id="short-link-filter" placeholder="Search by Short Link" data-i18n="main.filter.short_link_placeholder">
                 
-                <label for="original-link-filter" data-i18n="filter.original_link">Original Link:</label>
-                <input type="text" id="original-link-filter" placeholder="Search by Original Link" data-i18n="filter.original_link_placeholder">
+                <label for="original-link-filter" data-i18n="main.filter.original_link">Original Link:</label>
+                <input type="text" id="original-link-filter" placeholder="Search by Original Link" data-i18n="main.filter.original_link_placeholder">
                 
-                <label for="status-filter" data-i18n="filter.status">Status:</label>
+                <label for="status-filter" data-i18n="main.filter.status">Status:</label>
                 <select id="status-filter">
-                    <option value="" data-i18n="filter.status_all">All Status</option>
-                    <option value="Active" data-i18n="filter.status_active">Active</option>
-                    <option value="Inactive" data-i18n="filter.status_inactive">Inactive</option>
+                    <option value="" data-i18n="main.filter.status_all">All Status</option>
+                    <option value="Active" data-i18n="main.filter.status_active">Active</option>
+                    <option value="Inactive" data-i18n="main.filter.status_inactive">Inactive</option>
                 </select>
     
-                <label for="start-date-filter" data-i18n="filter.start_date">Start Date:</label>
+                <label for="start-date-filter" data-i18n="main.filter.start_date">Start Date:</label>
                 <input type="date" id="start-date-filter">
     
-                <label for="end-date-filter" data-i18n="filter.end_date">End Date:</label>
+                <label for="end-date-filter" data-i18n="main.filter.end_date">End Date:</label>
                 <input type="date" id="end-date-filter">
                 
-                <button id="apply-filter" class="apply-btn" data-i18n="filter.apply">Apply Filter</button>
-                <button id="clear-filter-btn" class="clear-btn" data-i18n="filter.clear">Clear Filters</button>
+                <button id="apply-filter" class="apply-btn" data-i18n="main.filter.apply">Apply Filter</button>
+                <button id="clear-filter-btn" class="clear-btn" data-i18n="main.filter.clear">Clear Filters</button>
             </div>
         </div>
         
 
         <!-- Table body: -->
-        <div id="history-count" class="history-title" data-i18n="history.title">History (0)</div>
+        <div id="history-count" class="history-title" data-i18n="main.history.title">History (0)</div>
         <div class="table-container">
             <table id="urlTable">
                 <thead>
                     <tr>
-                        <th data-i18n="table.history">History</th>
-                        <th data-i18n="table.short_link">Short Link</th>
-                        <th data-i18n="table.original_link">Original Link</th>
-                        <th data-i18n="table.clicks">Clicks</th>
-                        <th data-i18n="table.qr_code">QR Code</th>
-                        <th data-i18n="table.status">Status</th>
-                        <th data-i18n="table.date">Date</th>
-                        <th data-i18n="table.actions">Actions</th>
+                        <th data-i18n="main.table.history">History</th>
+                        <th data-i18n="main.table.short_link">Short Link</th>
+                        <th data-i18n="main.table.original_link">Original Link</th>
+                        <th data-i18n="main.table.clicks">Clicks</th>
+                        <th data-i18n="main.table.qr_code">QR Code</th>
+                        <th data-i18n="main.table.status">Status</th>
+                        <th data-i18n="main.table.date">Date</th>
+                        <th data-i18n="main.table.actions">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="url-table-body"></tbody>

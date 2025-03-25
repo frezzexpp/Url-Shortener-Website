@@ -435,11 +435,60 @@ $(document).ready(function () {
     
                 {
                     data: null,
-                    title: 'QR Code',
-                    render: function (data) {
-                        return `<img class='qr-img' src="/static/img/image 4.svg" width="50" height="50" alt="QR Code">`;
+                    title: 'Qr Code',
+                    createdCell: function (td, cellData, rowData, row, col) {
+                        // Create a unique ID for the QR code container and modal
+                        let qrId = `qr-${rowData.id}`;
+                        let modalId = `qr-modal-${rowData.id}`;
+                        
+                        // Add QR code image and modal structure
+                        $(td).html(`
+                            <img src="/static/img/image 4.svg" id="${qrId}" class="qr-container" style="cursor:pointer; width: 60px; height: 55px;" alt="QR Code Placeholder">
+                            
+                            <!-- Hidden Modal for Enlarged QR -->
+                            <div id="${modalId}" class="qr-modal" style="display:none; position:fixed; top:50%; left:50%;
+                                transform:translate(-50%, -50%); background:#fff; padding:10px; border-radius:8px; 
+                                box-shadow:0px 0px 10px rgba(0,0,0,0.2);">
+                                <div id="large-${qrId}"></div>
+                            </div>
+                        `);
+                
+                        // Add Click Event for Enlarging QR Code
+                        $(td).find(`#${qrId}`).click(function (e) {
+                            let modal = $(`#${modalId}`);
+                            
+                            // QR kodni toza yaratish
+                            let largeQRContainer = document.getElementById(`large-${qrId}`);
+                            largeQRContainer.innerHTML = "";
+                            new QRCode(largeQRContainer, {
+                                text: rowData.short_link,  // **short_link ni ishlatish**
+                                width: 200,
+                                height: 200
+                            });
+                        
+                            $(".qr-modal-overlay").fadeIn();  // Yopish foni chiqadi
+                            modal.fadeIn();
+                            e.stopPropagation();
+                        });
+                        
+                        // Modalni yopish
+                        $(".qr-modal-overlay, .qr-modal").click(function (e) {
+                            if (!$(e.target).closest('.qr-modal img').length) {
+                                $(".qr-modal-overlay").fadeOut();
+                                $(".qr-modal").fadeOut();
+                            }
+                        });
+                        
+                
+                        // Close Modal on Clicking Outside the QR Code
+                        $(document).on("click", function (e) {
+                            if (!$(e.target).closest(`.qr-modal, #${qrId}`).length) {
+                                $(`#${modalId}`).fadeOut();
+                            }
+                        });
                     }
                 },
+                
     
                 {
                     data: 'status',
